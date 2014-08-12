@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Slider
-Plugin URI: https://github.com/tronsha/wpslider
+Plugin URI: https://github.com/tronsha/wp-slider
 Description: Slider Plugin
 Version: 1.0
 Author: Stefan Hüsges
