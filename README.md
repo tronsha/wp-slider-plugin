@@ -1,2 +1,2 @@
-wpslider
-========
+wp-slider
+=========
