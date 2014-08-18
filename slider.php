@@ -16,7 +16,7 @@ function initSlider()
 {
     wp_enqueue_style('slider', WP_PLUGIN_URL . '/wp-slider/slider/css/slider.css');
     wp_enqueue_script('slider', WP_PLUGIN_URL . '/wp-slider/slider/js/slider.js', array('jquery'));
-    wp_enqueue_script('slider-responsive', WP_PLUGIN_URL . '/wp-slider/slider/js/slider-responsive.js', array('jquery'));
+    wp_enqueue_script('slider-responsive', WP_PLUGIN_URL . '/wp-slider/slider/js/responsive.js', array('jquery'));
 }
 
 function getSlider($att = array(), $content = null)
