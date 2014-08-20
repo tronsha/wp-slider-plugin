@@ -67,14 +67,25 @@ function getSlider($att = array(), $content = null)
         $position .= 'display: none; ';
     }
 
+    $textBox = '';
+    if (isset($att['text']) === true) {
+        $textArray = explode('|', $att['text']);
+        $textBox = '<div class="text">';
+        foreach($textArray as $key => $sliderText) {
+            $textBox .= '<span class="' . ($key == 0 ? 'active' : '') . (empty($sliderText) ? ' hidden' : '') . '">' . $sliderText . '</span>';
+        }
+        $textBox .= '</div>';
+    }
+
     $output = '
-<div id="slider" style="' . $style . '">
+<div id="slider" class="slider" style="' . $style . '">
     <div class="slides">
     ' . $content . '
     </div>
     <div class="prev" style="' . $change . '"></div>
     <div class="next" style="' . $change . '"></div>
     <div class="position" style="' . $position . '"></div>
+    ' . $textBox . '
 </div>
 <script>
     jQuery(document).ready(function () {
