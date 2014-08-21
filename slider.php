@@ -38,6 +38,12 @@ function getSlider($att = array(), $content = null)
         foreach ($files as $file) {
             $content .= '<img src="' . WP_PLUGIN_URL . '/wp-slider/slider/images/' . $file . '" />';
         }
+    } else {
+        preg_match_all('/<img[^>]+>/i', do_shortcode($content), $matches);
+        $content = '';
+        foreach ($matches[0] as $image) {
+            $content .= $image;
+        }
     }
 
     $options = '';
