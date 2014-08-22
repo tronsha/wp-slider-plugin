@@ -61,7 +61,6 @@ function getSlider($att = array(), $content = null)
 
     if (isset($att['height']) === true) {
         $style .= 'height: ' . $att['height'] . 'px; ';
-        $change = 'top: ' . ($att['height'] / 2 - 8) . 'px; ';
     }
     if (isset($att['width']) === true) {
         $style .= 'width: ' . $att['width'] . 'px; ';
@@ -88,8 +87,8 @@ function getSlider($att = array(), $content = null)
     <div class="slides">
     ' . $content . '
     </div>
-    <div class="prev" style="' . $change . '"></div>
-    <div class="next" style="' . $change . '"></div>
+    <div class="prev" style="' . $change . '"><div></div></div>
+    <div class="next" style="' . $change . '"><div></div></div>
     <div class="position" style="' . $position . '"></div>
     ' . $textBox . '
 </div>
