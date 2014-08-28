@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Slider
-Plugin URI: https://github.com/tronsha/wp-slider
+Plugin URI: https://github.com/tronsha/wp-slider-plugin
 Description: Slider Plugin
 Version: 1.0
 Author: Stefan Hüsges
@@ -14,9 +14,9 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 function initSlider()
 {
-    wp_enqueue_style('slider', WP_PLUGIN_URL . '/wp-slider/slider/css/slider.css');
-    wp_enqueue_script('slider', WP_PLUGIN_URL . '/wp-slider/slider/js/slider.js', array('jquery'));
-    wp_enqueue_script('slider-responsive', WP_PLUGIN_URL . '/wp-slider/slider/js/responsive.js', array('jquery'));
+    wp_enqueue_style('slider', WP_PLUGIN_URL . '/wp-slider-plugin/slider/css/slider.css');
+    wp_enqueue_script('slider', WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/slider.js', array('jquery'));
+    wp_enqueue_script('slider-responsive', WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/responsive.js', array('jquery'));
 }
 
 function getSlider($att = array(), $content = null)
