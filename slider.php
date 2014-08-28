@@ -36,7 +36,7 @@ function getSlider($att = array(), $content = null)
         sort($files);
 
         foreach ($files as $file) {
-            $content .= '<img src="' . WP_PLUGIN_URL . '/wp-slider/slider/images/' . $file . '" />';
+            $content .= '<img src="' . WP_PLUGIN_URL . '/wp-slider-plugin/slider/images/' . $file . '" />';
         }
     } else {
         preg_match_all('/<img[^>]+>/i', do_shortcode($content), $matches);
