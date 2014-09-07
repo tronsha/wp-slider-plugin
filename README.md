@@ -1,2 +1,2 @@
-wp-slider
-=========
+# WordPress Slider Plugin
+
