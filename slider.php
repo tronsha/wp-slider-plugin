@@ -127,7 +127,7 @@ add_action(
     'init',
     function () {
         if (!is_admin()) {
-            wp_enqueue_style(
+            wp_register_style(
                 'slider',
                 WP_PLUGIN_URL . '/wp-slider-plugin/slider/css/slider.css',
                 array(),
@@ -145,6 +145,7 @@ add_action(
                 array('jquery', 'slider'),
                 '1.0.0'
             );
+            wp_enqueue_style('slider');
             wp_enqueue_script('slider');
             wp_enqueue_script('slider-responsive');
         }
