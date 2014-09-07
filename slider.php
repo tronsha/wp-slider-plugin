@@ -126,24 +126,28 @@ class Slider
 add_action(
     'init',
     function () {
-        wp_enqueue_style(
-            'slider',
-            WP_PLUGIN_URL . '/wp-slider-plugin/slider/css/slider.css',
-            array(),
-            '1.0.0'
-        );
-        wp_enqueue_script(
-            'slider',
-            WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/slider.js',
-            array('jquery'),
-            '1.0.0'
-        );
-        wp_enqueue_script(
-            'slider-responsive',
-            WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/responsive.js',
-            array('jquery', 'slider'),
-            '1.0.0'
-        );
+        if (!is_admin()) {
+            wp_enqueue_style(
+                'slider',
+                WP_PLUGIN_URL . '/wp-slider-plugin/slider/css/slider.css',
+                array(),
+                '1.0.0'
+            );
+            wp_register_script(
+                'slider',
+                WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/slider.js',
+                array('jquery'),
+                '1.0.0'
+            );
+            wp_register_script(
+                'slider-responsive',
+                WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/responsive.js',
+                array('jquery', 'slider'),
+                '1.0.0'
+            );
+            wp_enqueue_script('slider');
+            wp_enqueue_script('slider-responsive');
+        }
     }
 );
 
