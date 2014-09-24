@@ -10,7 +10,10 @@ Copyright: Stefan Hüsges
 License: MIT
 */
 
-defined('ABSPATH') or die("No script kiddies please!");
+if (!defined('ABSPATH')) {
+    header("HTTP/1.0 404 Not Found");
+    die;
+}
 
 class Slider
 {
@@ -47,7 +50,7 @@ class Slider
         }
         sort($files);
         foreach ($files as $file) {
-            $content .= '<img src="' . WP_PLUGIN_URL . '/wp-slider-plugin/slider/images/' . $file . '" />';
+            $content .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/' . $file . '" />';
         }
         return $content;
     }
@@ -129,19 +132,19 @@ add_action(
         if (!is_admin()) {
             wp_register_style(
                 'slider',
-                WP_PLUGIN_URL . '/wp-slider-plugin/slider/css/slider.css',
+                plugin_dir_url(__FILE__) . 'slider/css/slider.css',
                 array(),
                 '1.0.0'
             );
             wp_register_script(
                 'slider',
-                WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/slider.js',
+                plugin_dir_url(__FILE__) . 'slider/js/slider.js',
                 array('jquery'),
                 '1.0.0'
             );
             wp_register_script(
                 'slider-responsive',
-                WP_PLUGIN_URL . '/wp-slider-plugin/slider/js/responsive.js',
+                plugin_dir_url(__FILE__) . 'slider/js/responsive.js',
                 array('jquery', 'slider'),
                 '1.0.0'
             );
