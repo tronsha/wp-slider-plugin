@@ -56,7 +56,7 @@ class Slider
         }
         sort($files);
         foreach ($files as $file) {
-            $content .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/' . $file . '" />';
+            $content .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/' . $file . '" alt="Slider Image" />';
         }
         return $content;
     }
