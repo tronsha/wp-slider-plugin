@@ -113,8 +113,8 @@ class Slider
                 <div class="slides">
                 ' . $content . '
                 </div>
-                <div class="prev" style="' . $change . '"><div></div></div>
-                <div class="next" style="' . $change . '"><div></div></div>
+                <div class="prev" style="' . $change . '"><div>&#160;</div></div>
+                <div class="next" style="' . $change . '"><div>&#160;</div></div>
                 <div class="position" style="' . $position . '"></div>
                 ' . $textBox . '
             </div>
