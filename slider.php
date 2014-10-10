@@ -1,19 +1,14 @@
 <?php
 /**
- * @link              https://github.com/tronsha/wp-slider-plugin
- * @since             1.0.0
- * @package           wp-slider-plugin
- *
- * @wordpress-plugin
- * Plugin Name:       UPA Slider
- * Plugin URI:        https://github.com/tronsha/wp-slider-plugin/tree/upa
- * Description:       Slider Plugin
- * Version:           1.0.0
- * Author:            UPA-Webdesign
- * Author URI:        http://www.upa-webdesign.de/
- * Copyright:         Stefan Hüsges
- * License:           MIT
- * License URI:       https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
+ * Plugin Name: UPA Slider
+ * Plugin URI:  https://github.com/tronsha/wp-slider-plugin/tree/upa
+ * Description: Slider Plugin
+ * Version:     1.0.0
+ * Author:      UPA-Webdesign
+ * Author URI:  http://www.upa-webdesign.de/
+ * Copyright:   Stefan Hüsges
+ * License:     MIT
+ * License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
  */
 
 class Slider
@@ -40,18 +35,12 @@ class Slider
     protected function getSlides()
     {
         $content = '';
-        $files = array();
-        if ($handle = opendir(realpath(dirname(__FILE__) . '/slider/images/'))) {
-            while (false !== ($file = readdir($handle))) {
-                if ($file != "." && $file != ".." && $file != ".gitkeep") {
-                    $files[] = $file;
-                }
-            }
-            closedir($handle);
-        }
-        sort($files);
+        $path = 'slider/images/';
+        $dir = realpath(dirname(__FILE__) . '/' . $path) . '/';
+        $type = array('png', 'jpg');
+        $files = glob($dir . '*.{' . implode(',', $type) . '}', GLOB_BRACE);
         foreach ($files as $file) {
-            $content .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/' . $file . '" alt="Slider Image" />';
+            $content .= '<img src="' . plugin_dir_url(__FILE__) . $path . basename($file) . '" alt="Slider Image" />';
         }
         return $content;
     }
