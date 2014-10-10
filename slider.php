@@ -53,7 +53,7 @@ class Slider
         }
         sort($files);
         foreach ($files as $file) {
-            $content .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/' . $file . '" />';
+            $content .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/' . $file . '" alt="Slider Image" />';
         }
         return $content;
     }
@@ -110,8 +110,8 @@ class Slider
                 <div class="slides">
                 ' . $content . '
                 </div>
-                <div class="prev" style="' . $change . '"><div></div></div>
-                <div class="next" style="' . $change . '"><div></div></div>
+                <div class="prev" style="' . $change . '"><div>&#160;</div></div>
+                <div class="next" style="' . $change . '"><div>&#160;</div></div>
                 <div class="position" style="' . $position . '"></div>
                 ' . $textBox . '
             </div>
