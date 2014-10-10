@@ -16,8 +16,6 @@
  * License URI:       https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
  */
 
-defined('ABSPATH') or (@include_once explode('wp-content', __DIR__)[0] . '/wp-hide.php') or die;
-
 class Slider
 {
     private $att = array();
