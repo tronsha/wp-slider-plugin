@@ -5,12 +5,12 @@
  * @package           wp-slider-plugin
  *
  * @wordpress-plugin
- * Plugin Name:       MPCX Slider
- * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
+ * Plugin Name:       UPA Slider
+ * Plugin URI:        https://github.com/tronsha/wp-slider-plugin/tree/upa
  * Description:       Slider Plugin
  * Version:           1.0.0
- * Author:            Stefan Hüsges
- * Author URI:        http://www.mpcx.net/
+ * Author:            UPA-Webdesign
+ * Author URI:        http://www.upa-webdesign.de/
  * Copyright:         Stefan Hüsges
  * License:           MIT
  * License URI:       https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
@@ -129,39 +129,38 @@ class Slider
     }
 }
 
-add_action(
-    'init',
-    function () {
-        if (!is_admin()) {
-            wp_register_style(
-                'slider',
-                plugin_dir_url(__FILE__) . 'slider/css/slider.css',
-                array(),
-                '1.0.0'
-            );
-            wp_register_script(
-                'slider',
-                plugin_dir_url(__FILE__) . 'slider/js/slider.js',
-                array('jquery'),
-                '1.0.0'
-            );
-            wp_register_script(
-                'slider-responsive',
-                plugin_dir_url(__FILE__) . 'slider/js/responsive.js',
-                array('jquery', 'slider'),
-                '1.0.0'
-            );
-            wp_enqueue_style('slider');
-            wp_enqueue_script('slider');
-            wp_enqueue_script('slider-responsive');
-        }
+function initSlider()
+{
+    if (!is_admin()) {
+        wp_register_style(
+            'slider',
+            plugin_dir_url(__FILE__) . 'slider/css/slider.css',
+            array(),
+            '1.0.0'
+        );
+        wp_register_script(
+            'slider',
+            plugin_dir_url(__FILE__) . 'slider/js/slider.js',
+            array('jquery'),
+            '1.0.0'
+        );
+        wp_register_script(
+            'slider-responsive',
+            plugin_dir_url(__FILE__) . 'slider/js/responsive.js',
+            array('jquery', 'slider'),
+            '1.0.0'
+        );
+        wp_enqueue_style('slider');
+        wp_enqueue_script('slider');
+        wp_enqueue_script('slider-responsive');
     }
-);
+}
 
-add_shortcode(
-    'slider',
-    function ($att = array(), $content = null) {
-        $slider = new Slider($att, $content);
-        return $slider->render();
-    }
-);
+function shortcodeSlider($att = array(), $content = null)
+{
+    $slider = new Slider($att, $content);
+    return $slider->render();
+}
+
+add_action('init', 'initSlider');
+add_shortcode('slider', 'shortcodeSlider');
