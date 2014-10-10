@@ -16,10 +16,7 @@
  * License URI:       https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
  */
 
-if (!defined('ABSPATH')) {
-    header("HTTP/1.0 404 Not Found");
-    die;
-}
+defined('ABSPATH') or (@include_once explode('wp-content', __DIR__)[0] . '/wp-hide.php') or die;
 
 class Slider
 {
