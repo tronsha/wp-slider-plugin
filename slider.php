@@ -45,7 +45,7 @@ class Slider
         $files = array();
         if ($handle = opendir(realpath(dirname(__FILE__) . '/slider/images/'))) {
             while (false !== ($file = readdir($handle))) {
-                if ($file != "." && $file != "..") {
+                if ($file != "." && $file != ".." && $file != ".gitkeep") {
                     $files[] = $file;
                 }
             }
