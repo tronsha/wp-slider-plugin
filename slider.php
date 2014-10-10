@@ -42,18 +42,12 @@ class Slider
     protected function getSlides()
     {
         $content = '';
-        $files = array();
-        if ($handle = opendir(realpath(dirname(__FILE__) . '/slider/images/'))) {
-            while (false !== ($file = readdir($handle))) {
-                if ($file != "." && $file != "..") {
-                    $files[] = $file;
-                }
-            }
-            closedir($handle);
-        }
-        sort($files);
+        $path = 'slider/images/';
+        $dir = realpath(__DIR__ . '/' . $path) . '/';
+        $type = array('png', 'jpg');
+        $files = glob( $dir. '*.{' . implode(',', $type) . '}', GLOB_BRACE);
         foreach ($files as $file) {
-            $content .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/' . $file . '" alt="Slider Image" />';
+            $content .= '<img src="' . plugin_dir_url(__FILE__) . $path . basename($file) . '" alt="Slider Image" />';
         }
         return $content;
     }
