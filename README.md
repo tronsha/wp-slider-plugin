@@ -12,7 +12,7 @@ Will man den Slider im Template verwenden so kann man ihn folgendermaßen einbin
 <?php echo do_shortcode('[slider]'); ?> 
 ```
 
-In dieser kurzen Form werden alle _.jpg_ und _.png_ Bilder aus dem Verzeichnis _wp-content/plugins/wp-slider-plugin/slider/slides_ vom Slider verwendet.
+In dieser kurzen Form werden alle _.jpg_ und _.png_ Bilder aus dem Verzeichnis _wp-content/plugins/wp-slider-plugin/slider/slides/_ vom Slider verwendet.
 
 Es lässt sich aber auch die WordPress Gallerie benutzen.
 
