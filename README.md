@@ -4,6 +4,6 @@
 
 _in Arbeit_
 
-## License
+## Lizenz
 
 [MIT License](LICENSE)
