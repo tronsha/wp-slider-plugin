@@ -31,7 +31,15 @@
 
 .slider .prev > *,
 .slider .next > * {
-    top: -50%
+    position: relative;
+    top: -8px;
+}
+
+.slider .prev > img,
+.slider .next > img {
+    border: none;
+    box-shadow: none;
+    margin: 0 6px;
 }
 
 .slider .prev {
