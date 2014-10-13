@@ -45,7 +45,7 @@ class Slider
         return $content;
     }
     
-        protected function getButtonPrev()
+    protected function getButtonPrev()
     {
         if (isset($this->att['change']) === true && $this->att['change'] === 'false') {
             return '';
