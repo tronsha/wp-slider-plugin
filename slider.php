@@ -35,7 +35,7 @@ class Slider
     protected function getSlides()
     {
         $content = '';
-        $path = 'slider/images/';
+        $path = 'slider/slides/';
         $dir = realpath(dirname(__FILE__) . '/' . $path) . '/';
         $type = array('png', 'jpg');
         $files = glob($dir . '*.{' . implode(',', $type) . '}', GLOB_BRACE);
