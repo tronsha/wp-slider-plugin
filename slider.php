@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: UPA Slider
- * Plugin URI:  https://github.com/tronsha/wp-slider-plugin/tree/upa
+ * Plugin URI:  https://github.com/tronsha/wp-slider-plugin/blob/upa/README.md
  * Description: Slider Plugin
  * Version:     1.0.0
  * Author:      UPA-Webdesign
