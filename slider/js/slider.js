@@ -46,10 +46,10 @@
             }, function () {
                 that.auto();
             });
-            $slider.find('.prev').click(function () {
+            $slider.find('.prev > *').click(function () {
                 that.prev();
             });
-            $slider.find('.next').click(function () {
+            $slider.find('.next > *').click(function () {
                 that.next();
             });
             that.auto();
