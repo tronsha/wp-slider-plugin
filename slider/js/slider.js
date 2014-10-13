@@ -36,7 +36,7 @@
                     $position.append('<div class="points"></div>');
                 }
             });
-            $position.find('.points').each(function(index) {
+            $position.find('.points').each(function (index) {
                 $(this).click(function () {
                     that.show(index + 1);
                 });

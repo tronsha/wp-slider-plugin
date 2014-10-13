@@ -37,6 +37,7 @@
 .slider .prev > img,
 .slider .next > img {
     margin: 0 6px;
+    opacity: 0.5;
 }
 
 .slider .prev {

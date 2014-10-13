@@ -6,9 +6,9 @@ window.onresize = function () {
     sliderResize();
 }
 
-var sliderResize = function() {
+var sliderResize = function () {
     var $slider = jQuery('.slider');
-    $slider.each(function() {
+    $slider.each(function () {
         var $this = jQuery(this);
         $this.css('max-width', '100%');
         var $activeImage = $this.find('.slides .active');

@@ -77,6 +77,8 @@ class Slider
         $prevButton = '<div class="prev">';
         if (file_exists(get_template_directory() . '/images/slider/prev.png')) {
             $prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
+        } elseif (file_exists(plugin_dir_path(__FILE__) . 'slider/images/prev.png')) {
+            $prevButton .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/prev.png" alt="prev">';
         } else {
             $prevButton .= '<div>&#160;</div>';
         }
@@ -92,6 +94,8 @@ class Slider
         $nextButton = '<div class="next">';
         if (file_exists(get_template_directory() . '/images/slider/next.png')) {
             $nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
+        } elseif (file_exists(plugin_dir_path(__FILE__) . 'slider/images/next.png')) {
+            $nextButton .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/next.png" alt="next">';
         } else {
             $nextButton .= '<div>&#160;</div>';
         }
