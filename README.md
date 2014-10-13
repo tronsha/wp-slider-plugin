@@ -2,7 +2,7 @@
 
 ## Dokumentation
 
-_in Arbeit_
+### Einbinden
 
 Der Slider kann einfach mit dem ShortCode `[slider]` eingebunden werden.
 
@@ -23,6 +23,16 @@ Es lässt sich aber auch die WordPress Gallerie benutzen.
 ```
 
 Bei der Gallerie darauf achten, dass `size="full"` ist.
+
+### Attribute
+
+* __delay__: Wechselzeit in Millisekunden. Standard: 1000
+* __interval__: Anzeigedauer eines Bildes in Millisekunden. Standard: 10000
+* __width__: Breite vom Slider. Standard: So breit wie möglich.
+* __height__: Höhe vom Slider. Wird bei Verwendung der _responsive.js_ überschrieben.
+* __text__: Textbox anzeigen. Texte für die Sliderbilder mit __|__ trennen.
+* __change__: Auf _false_ setzen um die Vor- und Zurückpfeile auszublenden.
+* __position__: Auf _false_ setzen um die Positionspunkte auszublenden.
 
 ## Lizenz
 
