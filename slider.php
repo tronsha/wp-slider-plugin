@@ -92,13 +92,16 @@ class Slider
             $textBox .= '</div>';
         }
 
+        $prev = file_exists(get_template_directory() . '/images/slider/prev.png') ? '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">' : '<div>&#160;</div>';
+        $next = file_exists(get_template_directory() . '/images/slider/next.png') ? '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">' : '<div>&#160;</div>';
+
         $output = '
             <div id="slider" class="slider" style="' . $style . '">
                 <div class="slides">
                 ' . $content . '
                 </div>
-                <div class="prev" style="' . $change . '"><div>&#160;</div></div>
-                <div class="next" style="' . $change . '"><div>&#160;</div></div>
+                <div class="prev" style="' . $change . '">' . $prev . '</div>
+                <div class="next" style="' . $change . '">' . $next . '</div>
                 <div class="position" style="' . $position . '"></div>
                 ' . $textBox . '
             </div>
