@@ -44,6 +44,36 @@ class Slider
         }
         return $content;
     }
+    
+        protected function getButtonPrev()
+    {
+        if (isset($this->att['change']) === true && $this->att['change'] === 'false') {
+            return '';
+        }
+        $prevButton = '<div class="prev">';
+        if (file_exists(get_template_directory() . '/images/slider/prev.png')) {
+            $prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
+        } else {
+            $prevButton .= '<div>&#160;</div>';
+        }
+        $prevButton .= '</div>';
+        return $prevButton;
+    }
+
+    protected function getButtonNext()
+    {
+        if (isset($this->att['change']) === true && $this->att['change'] === 'false') {
+            return '';
+        }
+        $nextButton = '<div class="next">';
+        if (file_exists(get_template_directory() . '/images/slider/next.png')) {
+            $nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
+        } else {
+            $nextButton .= '<div>&#160;</div>';
+        }
+        $nextButton .= '</div>';
+        return $nextButton;
+    }
 
     public function render()
     {
@@ -92,16 +122,13 @@ class Slider
             $textBox .= '</div>';
         }
 
-        $prev = file_exists(get_template_directory() . '/images/slider/prev.png') ? '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">' : '<div>&#160;</div>';
-        $next = file_exists(get_template_directory() . '/images/slider/next.png') ? '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">' : '<div>&#160;</div>';
-
         $output = '
             <div id="slider" class="slider" style="' . $style . '">
                 <div class="slides">
                 ' . $content . '
                 </div>
-                <div class="prev" style="' . $change . '">' . $prev . '</div>
-                <div class="next" style="' . $change . '">' . $next . '</div>
+                ' . $this->getButtonPrev() . ' 
+                ' . $this->getButtonNext() . '
                 <div class="position" style="' . $position . '"></div>
                 ' . $textBox . '
             </div>
