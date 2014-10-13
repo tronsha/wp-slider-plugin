@@ -22,7 +22,7 @@ Es lässt sich aber auch die WordPress Gallerie benutzen.
 [/slider]
 ```
 
-Bei der Gallerie darauf achten, dass `size="full"` oder eben ggf. die gewünschte Größe gewählt ist.
+Bei der Gallerie darauf achten, dass `size="full"` bzw. die gewünschte Bildgröße gewählt ist.
 
 ### Attribute
 
