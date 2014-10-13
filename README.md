@@ -5,10 +5,6 @@
 * Es wird noch kein PHP 5.3 vorausgesetzt 
 * Im Backend sind andere Angaben für Name und Author
 
-## Require
-* [WordPress][3]
-* [PHP5][4]
-
 ## Creator
 
 **Stefan Hüsges**
@@ -22,5 +18,3 @@
 
 [1]: https://github.com/tronsha
 [2]: http://www.mpcx.net
-[3]: https://wordpress.org
-[4]: http://php.net
