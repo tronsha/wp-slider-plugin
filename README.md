@@ -9,7 +9,7 @@ Der Slider kann einfach mit dem ShortCode `[slider]` eingebunden werden.
 Will man den Slider im Template verwenden so kann man ihn folgendermaßen einbinden. 
 
 ```php
-<?php echo do_shortcode(["slider"]); ?> 
+<?php echo do_shortcode('[slider]'); ?> 
 ```
 
 In dieser kurzen Form werden alle _*.jpg_ und _*.png_ Bilder aus dem Verzeichnis _wp-content/plugins/wp-slider-plugin/slider/images_ vom Slider verwendet.
@@ -33,6 +33,10 @@ Bei der Gallerie darauf achten, dass `size="full"` bzw. die gewünschte Bildgrö
 * __text__: Textbox anzeigen. Texte für die Sliderbilder mit __|__ trennen.
 * __change__: Auf _false_ setzen um die Vor- und Zurückpfeile auszublenden.
 * __position__: Auf _false_ setzen um die Positionspunkte auszublenden.
+
+Zum Beispiel soll der Slider alle 5 Sekunden das Bild wechseln sowie 640 Pixel breit und 400 Pixel hoch sein.
+
+<?php echo do_shortcode('[slider interval="5000" width="640" height="400"]'); ?> 
 
 ## Lizenz
 
