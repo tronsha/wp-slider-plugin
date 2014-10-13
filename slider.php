@@ -52,10 +52,84 @@ class Slider
         return $content;
     }
 
+    protected function getSliderOptions()
+    {
+        $options = '';
+        if (isset($this->att['delay']) === true) {
+            $options .= 'delay: ' . $this->att['delay'] . ', ';
+        }
+        if (isset($this->att['interval']) === true) {
+            $options .= 'interval: ' . $this->att['interval'] . ', ';
+        }
+        return $options;
+    }
+
+    protected function getSliderStyle()
+    {
+        $style = '';
+        if (isset($this->att['height']) === true) {
+            $style .= 'height: ' . $this->att['height'] . 'px; ';
+        }
+        if (isset($this->att['width']) === true) {
+            $style .= 'width: ' . $this->att['width'] . 'px; ';
+        }
+        return $style;
+    }
+
+    protected function getButtonPrev()
+    {
+        if (isset($this->att['change']) === true && $this->att['change'] === 'false') {
+            return '';
+        }
+        $prevButton = '<div class="prev">';
+        if (file_exists(get_template_directory() . '/images/slider/prev.png')) {
+            $prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
+        } else {
+            $prevButton .= '<div>&#160;</div>';
+        }
+        $prevButton .= '</div>';
+        return $prevButton;
+    }
+
+    protected function getButtonNext()
+    {
+        if (isset($this->att['change']) === true && $this->att['change'] === 'false') {
+            return '';
+        }
+        $nextButton = '<div class="next">';
+        if (file_exists(get_template_directory() . '/images/slider/next.png')) {
+            $nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
+        } else {
+            $nextButton .= '<div>&#160;</div>';
+        }
+        $nextButton .= '</div>';
+        return $nextButton;
+    }
+
+    protected function getPositionBar()
+    {
+        if (isset($this->att['position']) === true && $this->att['position'] === 'false') {
+            return '';
+        }
+        return '<div class="position"></div>';
+    }
+
+    protected function getTextBox()
+    {
+        if (isset($this->att['text']) === true) {
+            $textArray = explode('|', $this->att['text']);
+            $textBox = '<div class="text">';
+            foreach ($textArray as $key => $sliderText) {
+                $textBox .= '<span class="' . ($key == 0 ? 'active' : '') . (empty($sliderText) ? ' hidden' : '') . '">' . $sliderText . '</span>';
+            }
+            $textBox .= '</div>';
+            return $textBox;
+        }
+        return '';
+    }
+
     public function render()
     {
-        $att = $this->att;
-
         if (empty($this->content) === false) {
             $content = do_shortcode($this->content);
             $content = $this->cleanContent($content);
@@ -63,55 +137,19 @@ class Slider
             $content = $this->getSlides();
         }
 
-        $options = '';
-
-        if (isset($att['delay']) === true) {
-            $options .= 'delay: ' . $att['delay'] . ', ';
-        }
-        if (isset($att['interval']) === true) {
-            $options .= 'interval: ' . $att['interval'] . ', ';
-        }
-
-        $style = '';
-        $change = '';
-        $position = '';
-
-        if (isset($att['height']) === true) {
-            $style .= 'height: ' . $att['height'] . 'px; ';
-        }
-        if (isset($att['width']) === true) {
-            $style .= 'width: ' . $att['width'] . 'px; ';
-        }
-        if (isset($att['change']) === true && $att['change'] === 'false') {
-            $change .= 'display: none; ';
-        }
-        if (isset($att['position']) === true && $att['position'] === 'false') {
-            $position .= 'display: none; ';
-        }
-
-        $textBox = '';
-        if (isset($att['text']) === true) {
-            $textArray = explode('|', $att['text']);
-            $textBox = '<div class="text">';
-            foreach ($textArray as $key => $sliderText) {
-                $textBox .= '<span class="' . ($key == 0 ? 'active' : '') . (empty($sliderText) ? ' hidden' : '') . '">' . $sliderText . '</span>';
-            }
-            $textBox .= '</div>';
-        }
-
         $output = '
-            <div id="slider" class="slider" style="' . $style . '">
+            <div id="slider" class="slider" style="' . $this->getSliderStyle() . '">
                 <div class="slides">
                 ' . $content . '
                 </div>
-                <div class="prev" style="' . $change . '"><div>&#160;</div></div>
-                <div class="next" style="' . $change . '"><div>&#160;</div></div>
-                <div class="position" style="' . $position . '"></div>
-                ' . $textBox . '
+                ' . $this->getButtonPrev() . '
+                ' . $this->getButtonNext() . '
+                ' . $this->getPositionBar() . '
+                ' . $this->getTextBox() . '
             </div>
             <script>
                 jQuery(document).ready(function () {
-                    jQuery("#slider").slider({' . $options . '});
+                    jQuery("#slider").slider({' . $this->getSliderOptions() . '});
                 });
             </script>
         ';
