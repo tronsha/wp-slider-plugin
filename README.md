@@ -18,7 +18,7 @@ Es lässt sich aber auch die WordPress Gallerie benutzen.
 
 ```
 [slider]
-[gallery size="full" link="file" ids="5,6,7,8,9,10"]
+[gallery size="full" link="none" ids="5,6,7,8,9,10"]
 [/slider]
 ```
 
