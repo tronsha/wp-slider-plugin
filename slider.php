@@ -105,9 +105,6 @@ class Slider
         if (isset($att['width']) === true) {
             $style .= 'width: ' . $att['width'] . 'px; ';
         }
-        if (isset($att['change']) === true && $att['change'] === 'false') {
-            $change .= 'display: none; ';
-        }
         if (isset($att['position']) === true && $att['position'] === 'false') {
             $position .= 'display: none; ';
         }
