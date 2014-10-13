@@ -25,20 +25,17 @@
 .slider .prev {
     position: absolute;
     top: 50%;
+    transform: translate(0, -50%);
     z-index: 540;
 }
 
 .slider .prev > *,
 .slider .next > * {
     cursor: pointer;
-    position: relative;
-    top: -8px;
 }
 
 .slider .prev > img,
 .slider .next > img {
-    border: none;
-    box-shadow: none;
     margin: 0 6px;
 }
 
