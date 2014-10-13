@@ -34,9 +34,11 @@ Bei der Gallerie darauf achten, dass `size="full"` bzw. die gewünschte Bildgrö
 * __change__: Auf _false_ setzen um die Vor- und Zurückpfeile auszublenden.
 * __position__: Auf _false_ setzen um die Positionspunkte auszublenden.
 
-Zum Beispiel soll der Slider alle 5 Sekunden das Bild wechseln sowie 640 Pixel breit und 400 Pixel hoch sein.
+Zum Beispiel soll der Slider im Header vom Template eingebunden werden, alle 5 Sekunden das Bild wechseln sowie 640 Pixel breit und 400 Pixel hoch sein.
 
+```php
 <?php echo do_shortcode('[slider interval="5000" width="640" height="400"]'); ?> 
+```
 
 ## Lizenz
 
