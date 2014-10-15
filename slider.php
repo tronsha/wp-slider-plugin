@@ -194,7 +194,7 @@ class Slider
                 <div class="slides">
                 ' . $slides . '
                 </div>
-                ' . $this->getButtonPrev() . ' 
+                ' . $this->getButtonPrev() . '
                 ' . $this->getButtonNext() . '
                 ' . $this->getPositionBar() . '
                 ' . $this->getText() . '
