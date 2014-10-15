@@ -20,6 +20,8 @@ defined('ABSPATH') or (@include_once explode('wp-content', __DIR__)[0] . '/wp-hi
 
 class Slider
 {
+    private static $id = 0;
+    private static $posts = null;
     private $att = array();
     private $content = null;
 
@@ -27,6 +29,7 @@ class Slider
     {
         $this->att = $att;
         $this->content = $content;
+        self::$id++;
     }
 
     protected function cleanContent($content)
@@ -39,17 +42,56 @@ class Slider
         return $content;
     }
 
-    protected function getSlides()
+    protected function getPosts()
     {
-        $content = '';
+        if (self::$posts === null) {
+            self::$posts = get_posts(array(
+                'offset' => 0,
+                'category_name' => 'slides',
+                'posts_per_page' => -1,
+                'orderby' => 'ID',
+                'order' => 'ASC',
+            ));
+        }
+        return self::$posts;
+    }
+
+    protected function getSlidesFromPosts()
+    {
+        $slides = '';
+        $posts = $this->getPosts();
+        foreach ($posts as $post) {
+            $image_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+            $slides .= '<img src="' . $image_src[0] . '" alt="' . $post->post_title . '">';
+        }
+        return $slides;
+    }
+
+    protected function getSlidesFromDir()
+    {
+        $slides = '';
         $path = 'slider/slides/';
         $dir = realpath(__DIR__ . '/' . $path) . '/';
         $type = array('png', 'jpg');
         $files = glob($dir . '*.{' . implode(',', $type) . '}', GLOB_BRACE);
         foreach ($files as $file) {
-            $content .= '<img src="' . plugin_dir_url(__FILE__) . $path . basename($file) . '" alt="Slider Image" />';
+            $slides .= '<img src="' . plugin_dir_url(__FILE__) . $path . basename($file) . '" alt="Slider Image">';
         }
-        return $content;
+        return $slides;
+    }
+
+    protected function getSlides()
+    {
+        if (empty($this->content) === false) {
+            $content = do_shortcode($this->content);
+            $slides = $this->cleanContent($content);
+        } else {
+            $slides = $this->getSlidesFromPosts();
+            if (empty($slides) === true) {
+                $slides = $this->getSlidesFromDir();
+            }
+        }
+        return $slides;
     }
 
     protected function getSliderOptions()
@@ -118,7 +160,7 @@ class Slider
         return '<div class="position"></div>';
     }
 
-    protected function getTextBox()
+    protected function getText()
     {
         if (isset($this->att['text']) === true) {
             $textArray = explode('|', $this->att['text']);
@@ -128,37 +170,42 @@ class Slider
             }
             $textBox .= '</div>';
             return $textBox;
+        } else {
+            $posts = $this->getPosts();
+            if (empty($posts) === false) {
+                $textBox = '<div class="text">';
+                $first = true;
+                foreach ($posts as $post) {
+                    $textBox .= '<span class="' . ($first === true ? 'active' : '') . (empty($post->post_content) ? ' hidden' : '') . '">' . $post->post_content . '</span>';
+                    $first = false;
+                }
+                $textBox .= '</div>';
+                return $textBox;
+            }
         }
         return '';
     }
 
     public function render()
     {
-        if (empty($this->content) === false) {
-            $content = do_shortcode($this->content);
-            $content = $this->cleanContent($content);
-        } else {
-            $content = $this->getSlides();
-        }
-
+        $slides = $this->getSlides();
         $output = '
-            <div id="slider" class="slider" style="' . $this->getSliderStyle() . '">
+            <div id="slider-' . self::$id . '" class="slider" style="' . $this->getSliderStyle() . '">
                 <div class="slides">
-                ' . $content . '
+                ' . $slides . '
                 </div>
-                ' . $this->getButtonPrev() . '
+                ' . $this->getButtonPrev() . ' 
                 ' . $this->getButtonNext() . '
                 ' . $this->getPositionBar() . '
-                ' . $this->getTextBox() . '
+                ' . $this->getText() . '
             </div>
             <script>
                 jQuery(document).ready(function () {
-                    jQuery("#slider").slider({' . $this->getSliderOptions() . '});
+                    jQuery("#slider-' . self::$id . '").slider({' . $this->getSliderOptions() . '});
                 });
             </script>
         ';
-
-        if (empty($content) === false) {
+        if (empty($slides) === false) {
             return $output;
         }
         return '';
@@ -191,6 +238,7 @@ add_action(
             wp_enqueue_script('slider');
             wp_enqueue_script('slider-responsive');
         }
+        add_theme_support('post-thumbnails');
     }
 );
 
