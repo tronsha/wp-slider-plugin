@@ -4,69 +4,69 @@
     margin-right: auto;
 }
 
-.slider .slides {
+.slider > .slides {
     position: absolute;
     height: 100%;
     width: 100%;
 }
 
-.slider .slides img {
+.slider > .slides > img {
     position: absolute;
     height: 100%;
     width: 100%;
     z-index: 500;
 }
 
-.slider .slides .active {
+.slider > .slides > .active {
     z-index: 510;
 }
 
-.slider .next,
-.slider .prev {
+.slider > .next,
+.slider > .prev {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
     z-index: 540;
 }
 
-.slider .prev > *,
-.slider .next > * {
+.slider > .prev > *,
+.slider > .next > * {
     cursor: pointer;
 }
 
-.slider .prev > img,
-.slider .next > img {
+.slider > .prev > img,
+.slider > .next > img {
     margin: 0 6px;
     opacity: 0.5;
 }
 
-.slider .prev {
-    left: 0;
-}
-
-.slider .next {
-    right: 0;
-}
-
-.slider .prev > div,
-.slider .next > div {
+.slider > .prev > div,
+.slider > .next > div {
     border: 16px solid #000000;
     font-size: 0;
 }
 
-.slider .prev > div {
+.slider > .prev > div {
     border-bottom-color: transparent;
     border-left-color: transparent;
     border-top-color: transparent;
 }
 
-.slider .next > div {
+.slider > .next > div {
     border-bottom-color: transparent;
     border-right-color: transparent;
     border-top-color: transparent;
 }
 
-.slider .position {
+.slider > .prev {
+    left: 0;
+}
+
+.slider > .next {
+    right: 0;
+}
+
+.slider > .position {
     position: absolute;
     bottom: 10px;
     left: 0;
@@ -75,7 +75,7 @@
     z-index: 530;
 }
 
-.slider .position .points {
+.slider > .position > .points {
     cursor: pointer;
     background-color: #000000;
     border-radius: 5px;
@@ -88,11 +88,11 @@
     zoom: 1;
 }
 
-.slider .position .active {
+.slider > .position > .active {
     background-color: #ffffff;
 }
 
-.slider .text span {
+.slider > .text > span {
     display: none;
     position: absolute;
     bottom: 50px;
@@ -106,10 +106,10 @@
     z-index: 520;
 }
 
-.slider .text .active {
+.slider > .text > .active {
     display: block;
 }
 
-.slider .text .hidden {
+.slider > .text > .hidden {
     display: none;
 }
