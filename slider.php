@@ -74,8 +74,10 @@ class Slider
         $dir = realpath(__DIR__ . '/' . $path) . '/';
         $type = array('png', 'jpg');
         $files = glob($dir . '*.{' . implode(',', $type) . '}', GLOB_BRACE);
-        foreach ($files as $file) {
-            $slides .= '<img src="' . plugin_dir_url(__FILE__) . $path . basename($file) . '" alt="Slider Image">';
+        if ($files !== false) {
+            foreach ($files as $file) {
+                $slides .= '<img src="' . plugin_dir_url(__FILE__) . $path . basename($file) . '" alt="Slider Image">';
+            }
         }
         return $slides;
     }
