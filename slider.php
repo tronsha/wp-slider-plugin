@@ -119,6 +119,17 @@ class Slider
         }
         return $style;
     }
+    
+    protected function loadFontAwesome()
+    {
+        wp_register_style(
+            'fontawesome',
+            '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css',
+            array(),
+            '4.2.0'
+        );
+        wp_enqueue_style('fontawesome');
+    }
 
     protected function getButtonPrev()
     {
@@ -126,7 +137,10 @@ class Slider
             return '';
         }
         $prevButton = '<div class="prev">';
-        if (file_exists(get_template_directory() . '/images/slider/prev.png')) {
+        if (isset($this->att['change']) === true && $this->att['change'] === 'fa') {
+            $this->loadFontAwesome();
+            $prevButton .= '<i class="fa fa-chevron-left"></i>';
+        } elseif (file_exists(get_template_directory() . '/images/slider/prev.png')) {
             $prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
         } elseif (file_exists(plugin_dir_path(__FILE__) . 'slider/images/prev.png')) {
             $prevButton .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/prev.png" alt="prev">';
@@ -143,7 +157,10 @@ class Slider
             return '';
         }
         $nextButton = '<div class="next">';
-        if (file_exists(get_template_directory() . '/images/slider/next.png')) {
+        if (isset($this->att['change']) === true && $this->att['change'] === 'fa') {
+            $this->loadFontAwesome();
+            $nextButton .= '<i class="fa fa-chevron-right"></i>';
+        } elseif (file_exists(get_template_directory() . '/images/slider/next.png')) {
             $nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
         } elseif (file_exists(plugin_dir_path(__FILE__) . 'slider/images/next.png')) {
             $nextButton .= '<img src="' . plugin_dir_url(__FILE__) . 'slider/images/next.png" alt="next">';
