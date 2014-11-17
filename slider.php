@@ -139,7 +139,7 @@ class Slider
         $prevButton = '<div class="prev">';
         if (isset($this->att['change']) === true && $this->att['change'] === 'fa') {
             $this->loadFontAwesome();
-            $prevButton .= '<i class="fa fa-chevron-left"></i>';
+            $prevButton .= '<i class="fa ' . (isset($this->att['prev']) ? $this->att['prev'] : 'fa-chevron-left') . '"></i>';
         } elseif (file_exists(get_template_directory() . '/images/slider/prev.png')) {
             $prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
         } elseif (file_exists(plugin_dir_path(__FILE__) . 'slider/images/prev.png')) {
@@ -159,7 +159,7 @@ class Slider
         $nextButton = '<div class="next">';
         if (isset($this->att['change']) === true && $this->att['change'] === 'fa') {
             $this->loadFontAwesome();
-            $nextButton .= '<i class="fa fa-chevron-right"></i>';
+            $nextButton .= '<i class="fa ' . (isset($this->att['next']) ? $this->att['next'] : 'fa-chevron-right') . '"></i>';
         } elseif (file_exists(get_template_directory() . '/images/slider/next.png')) {
             $nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
         } elseif (file_exists(plugin_dir_path(__FILE__) . 'slider/images/next.png')) {
