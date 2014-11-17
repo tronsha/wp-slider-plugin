@@ -31,8 +31,8 @@ Select for gallery `size="full"` or the desired image size.
 * __width__: Width of the slider. Default: As wide as possible. 
 * __height__: Height of the slider. Will be overwritten using the responsive.js. 
 * __text__: Show Text Box. Separate the texts for the slides with __|__. 
-* __change__: Set to false to hide the forward and back arrow.
-* __position__: Set to false to hide the position points.
+* __change__: Set to __false__ to hide the forward and back arrow.
+* __position__: Set to __false__ to hide the position points.
 
 For example, the slider should be include into the header of the template. It should be every 5 seconds change a image and be 640 pixels wide and 400 pixels high.
 
@@ -40,10 +40,19 @@ For example, the slider should be include into the header of the template. It sh
 <?php echo do_shortcode('[slider interval="5000" width="640" height="400"]'); ?> 
 ```
 
+#### Font Awesome
+
+Use [Font Awesome][4] for the next and prev button.
+Here a example:
+
+```php
+<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
+```
+
 ## Require
-* [WordPress][3]
-* [PHP][4] 5.3.2 or newer
-* jQuery [Slider][5]
+* jQuery [Slider][3]
+* [WordPress][5]
+* [PHP][6] 5.3.2 or newer
 
 ## Creator
 
@@ -58,6 +67,7 @@ For example, the slider should be include into the header of the template. It sh
 
 [1]: https://github.com/tronsha
 [2]: http://www.mpcx.net
-[3]: https://wordpress.org
-[4]: http://php.net
-[5]: https://github.com/tronsha/slider
+[3]: https://github.com/tronsha/slider
+[4]: http://fortawesome.github.io/Font-Awesome/
+[5]: https://wordpress.org
+[6]: http://php.net
