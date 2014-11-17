@@ -31,8 +31,8 @@ Select for gallery `size="full"` or the desired image size.
 * __width__: Width of the slider. Default: As wide as possible. 
 * __height__: Height of the slider. Will be overwritten using the responsive.js. 
 * __text__: Show Text Box. Separate the texts for the slides with __|__. 
-* __change__: Set to __false__ to hide the forward and back arrow.
-* __position__: Set to __false__ to hide the position points.
+* __change__: Set to _false_ to hide the forward and back arrows.
+* __position__: Set to _false_ to hide the position points.
 
 For example, the slider should be include into the header of the template. It should be every 5 seconds change a image and be 640 pixels wide and 400 pixels high.
 
@@ -42,7 +42,7 @@ For example, the slider should be include into the header of the template. It sh
 
 #### Font Awesome
 
-Here an example, to use a [_Font Awesome_][4] symbol for the next and prev button.
+Here an example, to use a [_Font Awesome_][4] symbol for the forward and back arrows.
 
 ```php
 <?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
