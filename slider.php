@@ -42,9 +42,9 @@ class Slider
         return $content;
     }
 
-    protected function getPosts()
+    protected function getPosts($x = true)
     {
-        if (self::$posts === null) {
+        if (self::$posts === null && $x === true) {
             self::$posts = get_posts(array(
                 'offset' => 0,
                 'category_name' => 'slides',
@@ -173,7 +173,7 @@ class Slider
             $textBox .= '</div>';
             return $textBox;
         } else {
-            $posts = $this->getPosts();
+            $posts = $this->getPosts(false);
             if (empty($posts) === false) {
                 $textBox = '<div class="text">';
                 $first = true;
