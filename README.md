@@ -42,8 +42,7 @@ For example, the slider should be include into the header of the template. It sh
 
 #### Font Awesome
 
-Use [Font Awesome][4] for the next and prev button.
-Here a example:
+Here an example, to use a [_Font Awesome_][4] symbol for the next and prev button.
 
 ```php
 <?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
