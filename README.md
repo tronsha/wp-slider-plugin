@@ -51,8 +51,7 @@ Here a example:
 
 ## Require
 * jQuery [Slider][3]
-* [WordPress][5]
-* [PHP][6] 5.3.2 or newer
+* [PHP][5] 5.3.2 or newer
 
 ## Creator
 
@@ -69,5 +68,4 @@ Here a example:
 [2]: http://www.mpcx.net
 [3]: https://github.com/tronsha/slider
 [4]: http://fortawesome.github.io/Font-Awesome/
-[5]: https://wordpress.org
-[6]: http://php.net
+[5]: http://php.net
