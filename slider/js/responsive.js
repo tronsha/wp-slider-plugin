@@ -21,3 +21,18 @@ var sliderResize = function () {
         }
     });
 }
+
+function sliderResizeTextBox() {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+        var height = parseInt(jQuery('.slider .text span.active').css('height'));
+        jQuery('.slider .text span').css('bottom', -height);
+        jQuery('.slider .text span').css('left', 0);
+        jQuery('.slider .text span').css('right', 0);
+        jQuery('.slider').css('margin-bottom', height);
+    } else {
+        jQuery('.slider .text span').css('bottom', '');
+        jQuery('.slider .text span').css('left', '');
+        jQuery('.slider .text span').css('right', '');
+        jQuery('.slider').css('margin-bottom', '');
+    }
+}
