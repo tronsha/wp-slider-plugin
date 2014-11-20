@@ -22,7 +22,7 @@ var sliderResize = function () {
     });
 }
 
-var sliderResizeTextBox = function {
+var sliderResizeTextBox = function () {
     if (window.matchMedia('(max-width: 767px)').matches) {
         var height = parseInt(jQuery('.slider .text span.active').css('height'));
         jQuery('.slider .text span').css('bottom', -height);
