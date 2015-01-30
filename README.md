@@ -56,15 +56,16 @@ Here an example, to use a [_Font Awesome_][4] symbol for the forward and back ar
 
 **Stefan Hüsges**
 
-* [GitHub][1]
-* [Homepage][2]
+:computer: [Homepage][1]
+
+:octocat: [GitHub][2]
 
 ## License
 
 [MIT License](LICENSE)
 
-[1]: https://github.com/tronsha
-[2]: http://www.mpcx.net
+[1]: http://www.mpcx.net
+[2]: https://github.com/tronsha
 [3]: https://github.com/tronsha/slider
 [4]: http://fortawesome.github.io/Font-Awesome/
 [5]: http://php.net
