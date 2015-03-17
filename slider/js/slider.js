@@ -12,7 +12,7 @@
     function Plugin(element, options) {
         this.element = element;
         this.settings = $.extend({}, defaults, options);
-        this.var = {
+        this.vari = {
             timer: undefined,
             slide: 1,
             slides: 0
@@ -28,8 +28,8 @@
             var $slider = $(this.element);
             var $position = $slider.find('.position');
             $slider.children('.slides').find('img').each(function (index, element) {
-                self.var.slides++;
-                if (self.var.slides == self.var.slide) {
+                self.vari.slides++;
+                if (self.vari.slides == self.vari.slide) {
                     $(element).addClass('active').css('opacity', '1');
                     $position.append('<div class="points active"></div>');
                 } else {
@@ -43,7 +43,7 @@
                 });
             });
             $slider.hover(function () {
-                clearInterval(self.var.timer);
+                clearInterval(self.vari.timer);
             }, function () {
                 self.auto();
             });
@@ -57,32 +57,32 @@
         },
         auto: function () {
             var self = this;
-            this.var.timer = setInterval(function () {
+            this.vari.timer = setInterval(function () {
                 self.next();
             }, this.settings.interval);
         },
         next: function () {
-            if (this.var.slide < this.var.slides) {
-                this.show(this.var.slide + 1);
+            if (this.vari.slide < this.vari.slides) {
+                this.show(this.vari.slide + 1);
             } else {
                 this.show(1);
             }
         },
         prev: function () {
-            if (this.var.slide > 1) {
-                this.show(this.var.slide - 1);
+            if (this.vari.slide > 1) {
+                this.show(this.vari.slide - 1);
             } else {
-                this.show(this.var.slides);
+                this.show(this.vari.slides);
             }
         },
         show: function (slide) {
-            $(this.element).find('.slides img:nth-child(' + this.var.slide + ')').stop().removeClass('active').animate({opacity: 0}, this.settings.delay);
-            $(this.element).find('.position .points:nth-child(' + this.var.slide + ')').removeClass('active');
-            $(this.element).find('.text span:nth-child(' + this.var.slide + ')').removeClass('active');
-            this.var.slide = slide;
-            $(this.element).find('.slides img:nth-child(' + this.var.slide + ')').stop().addClass('active').animate({opacity: 1}, this.settings.delay);
-            $(this.element).find('.position .points:nth-child(' + this.var.slide + ')').addClass('active');
-            $(this.element).find('.text span:nth-child(' + this.var.slide + ')').addClass('active');
+            $(this.element).find('.slides img:nth-child(' + this.vari.slide + ')').stop().removeClass('active').animate({opacity: 0}, this.settings.delay);
+            $(this.element).find('.position .points:nth-child(' + this.vari.slide + ')').removeClass('active');
+            $(this.element).find('.text span:nth-child(' + this.vari.slide + ')').removeClass('active');
+            this.vari.slide = slide;
+            $(this.element).find('.slides img:nth-child(' + this.vari.slide + ')').stop().addClass('active').animate({opacity: 1}, this.settings.delay);
+            $(this.element).find('.position .points:nth-child(' + this.vari.slide + ')').addClass('active');
+            $(this.element).find('.text span:nth-child(' + this.vari.slide + ')').addClass('active');
             return this;
         }
     };
