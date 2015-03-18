@@ -77,13 +77,11 @@
 				}
 			},
 			show: function ( slide ) {
-				$( this.element ).find( '.slides img:nth-child(' + this.vari.slide + ')' ).stop().removeClass( 'active' ).animate( {opacity: 0},
-					this.settings.delay );
+				$( this.element ).find( '.slides img:nth-child(' + this.vari.slide + ')' ).stop().removeClass( 'active' ).animate( {opacity: 0}, this.settings.delay );
 				$( this.element ).find( '.position .points:nth-child(' + this.vari.slide + ')' ).removeClass( 'active' );
 				$( this.element ).find( '.text span:nth-child(' + this.vari.slide + ')' ).removeClass( 'active' );
 				this.vari.slide = slide;
-				$( this.element ).find( '.slides img:nth-child(' + this.vari.slide + ')' ).stop().addClass( 'active' ).animate( {opacity: 1},
-					this.settings.delay );
+				$( this.element ).find( '.slides img:nth-child(' + this.vari.slide + ')' ).stop().addClass( 'active' ).animate( {opacity: 1}, this.settings.delay );
 				$( this.element ).find( '.position .points:nth-child(' + this.vari.slide + ')' ).addClass( 'active' );
 				$( this.element ).find( '.text span:nth-child(' + this.vari.slide + ')' ).addClass( 'active' );
 				return this;
