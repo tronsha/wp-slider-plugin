@@ -13,8 +13,10 @@ This is a simple responsive jQuery Slider.
 
 = Documentation =
 
-Hier you can find the [Documentation](https://github.com/tronsha/wp-slider-plugin/blob/master/README.md)
+Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugin/blob/master/README.md)
 
 == Installation ==
 
-Upload the entire `wp-slider-plugin` folder to the `/wp-content/plugins/` directory.
+1. Upload the entire `wp-slider-plugin` folder to the `/wp-content/plugins/` directory
+1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Place `<?php echo do_shortcode('[slider]'); ?>` in your templates
