@@ -16,6 +16,8 @@
  * License URI:       https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
  */
 
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
 class Slider {
 	private static $id = 0;
 	private static $posts = null;
