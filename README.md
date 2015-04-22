@@ -42,7 +42,7 @@ For example, the slider should be include into the header of the template. It sh
 
 #### Font Awesome
 
-Here an example, to use a [_Font Awesome_][4] symbol for the forward and back arrows.
+Here an example, to use a [_Font Awesome_][5] symbol for the forward and back arrows.
 
 ```php
 <?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
@@ -50,7 +50,7 @@ Here an example, to use a [_Font Awesome_][4] symbol for the forward and back ar
 
 ## Require
 * jQuery [Slider][3]
-* [PHP][5] 5.3.2 or newer
+* [WordPress Requirements][4]
 
 ## Creator
 
@@ -67,5 +67,5 @@ Here an example, to use a [_Font Awesome_][4] symbol for the forward and back ar
 [1]: http://www.mpcx.net
 [2]: https://github.com/tronsha
 [3]: https://github.com/tronsha/slider
-[4]: http://fortawesome.github.io/Font-Awesome/
-[5]: http://php.net
+[4]: https://wordpress.org/about/requirements/
+[5]: http://fortawesome.github.io/Font-Awesome/

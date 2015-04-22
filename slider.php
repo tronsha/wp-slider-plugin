@@ -8,15 +8,13 @@
  * Plugin Name:       MPCX Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       Slider Plugin
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
  * License:           MIT
  * License URI:       https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
  */
-
-defined( 'ABSPATH' ) or ( @include_once explode( 'wp-content', __DIR__ )[0] . '/wp-hide.php' ) or die;
 
 class Slider {
 	private static $id = 0;
@@ -121,9 +119,9 @@ class Slider {
 	protected function loadFontAwesome() {
 		wp_register_style(
 			'fontawesome',
-			'//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css',
+			'//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
 			array(),
-			'4.2.0'
+			'4.3.0'
 		);
 		wp_enqueue_style( 'fontawesome' );
 	}
@@ -230,41 +228,38 @@ class Slider {
 	}
 }
 
-add_action(
-	'init',
-	function () {
-		if ( ! is_admin() ) {
-			wp_register_style(
-				'slider',
-				plugin_dir_url( __FILE__ ) . 'slider/css/slider.css',
-				array(),
-				'1.0.0'
-			);
-			wp_register_script(
-				'slider',
-				plugin_dir_url( __FILE__ ) . 'slider/js/slider.js',
-				array( 'jquery' ),
-				'1.0.0'
-			);
-			wp_register_script(
-				'slider-responsive',
-				plugin_dir_url( __FILE__ ) . 'slider/js/responsive.js',
-				array( 'jquery', 'slider' ),
-				'1.0.0'
-			);
-			wp_enqueue_style( 'slider' );
-			wp_enqueue_script( 'slider' );
-			wp_enqueue_script( 'slider-responsive' );
-		}
-		add_theme_support( 'post-thumbnails' );
-	}
-);
+function initSlider() {
+    if ( ! is_admin() ) {
+        wp_register_style(
+            'slider',
+            plugin_dir_url( __FILE__ ) . 'slider/css/slider.css',
+            array(),
+            '1.0.0'
+        );
+        wp_register_script(
+            'slider',
+            plugin_dir_url( __FILE__ ) . 'slider/js/slider.js',
+            array( 'jquery' ),
+            '1.0.0'
+        );
+        wp_register_script(
+            'slider-responsive',
+            plugin_dir_url( __FILE__ ) . 'slider/js/responsive.js',
+            array( 'jquery', 'slider' ),
+            '1.0.0'
+        );
+        wp_enqueue_style( 'slider' );
+        wp_enqueue_script( 'slider' );
+        wp_enqueue_script( 'slider-responsive' );
+    }
+    add_theme_support( 'post-thumbnails' );
+}
 
-add_shortcode(
-	'slider',
-	function ( $att = array(), $content = null ) {
-		$slider = new Slider( $att, $content );
+function shortcodeSlider( $att = array(), $content = null ) {
+    $slider = new Slider( $att, $content );
 
-		return $slider->render();
-	}
-);
+    return $slider->render();
+}
+
+add_action( 'init', 'initSlider' );
+add_shortcode( 'slider', 'shortcodeSlider' );
