@@ -5,12 +5,12 @@
  * @package           wp-slider-plugin
  *
  * @wordpress-plugin
- * Plugin Name:       MPCX Slider
- * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
+ * Plugin Name:       UPA Slider
+ * Plugin URI:        https://github.com/tronsha/wp-slider-plugin/blob/upa/README.md
  * Description:       Slider Plugin
  * Version:           1.0.1
- * Author:            Stefan Hüsges
- * Author URI:        http://www.mpcx.net/
+ * Author:            UPA-Webdesign
+ * Author URI:        http://www.upa-webdesign.de/
  * Copyright:         Stefan Hüsges
  * License:           MIT
  * License URI:       https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE

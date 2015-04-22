@@ -1,20 +1,20 @@
-# WordPress Slider Plugin
+# UPA Slider Plugin für WordPress
 
-## Documentation 
+## Dokumentation
 
-### Integrate 
+### Einbinden
 
-The slider can be easily integrated with the shortcode `[slider]`. 
+Der Slider kann einfach mit dem ShortCode `[slider]` eingebunden werden.
 
-If you want to use the slider in the template so you can integrate it as follows. 
+Will man den Slider im Template verwenden so kann man ihn folgendermaßen einbinden. 
 
 ```php
 <?php echo do_shortcode('[slider]'); ?> 
 ```
 
-In this short form are all _.jpg_ and _.png_ images from the directory _wp-content/plugins/wp-slider-plugin/slider/slides/_ used by the Slider. 
+In dieser kurzen Form werden alle _.jpg_ und _.png_ Bilder aus dem Verzeichnis _wp-content/plugins/wp-slider-plugin/slider/slides/_ vom Slider verwendet.
 
-It can also use the WordPress Gallery. 
+Es lässt sich aber auch die WordPress Gallerie benutzen.
 
 ```
 [slider]
@@ -22,50 +22,24 @@ It can also use the WordPress Gallery.
 [/slider]
 ```
 
-Select for gallery `size="full"` or the desired image size.
+Bei der Gallerie darauf achten, dass `size="full"` bzw. die gewünschte Bildgröße gewählt ist.
 
-### Attributes 
+### Attribute
 
-* __delay__: Time for changing. In milliseconds. Default: 1000
-* __interval__: Waiting time to display the next slide. In milliseconds. Default: 10000 
-* __width__: Width of the slider. Default: As wide as possible. 
-* __height__: Height of the slider. Will be overwritten using the responsive.js. 
-* __text__: Show Text Box. Separate the texts for the slides with __|__. 
-* __change__: Set to _false_ to hide the forward and back arrows.
-* __position__: Set to _false_ to hide the position points.
+* __delay__: Wechselzeit in Millisekunden. Standard: 1000
+* __interval__: Anzeigedauer eines Bildes in Millisekunden. Standard: 10000
+* __width__: Breite vom Slider. Standard: So breit wie möglich.
+* __height__: Höhe vom Slider. Wird bei Verwendung der _responsive.js_ überschrieben.
+* __text__: Textbox anzeigen. Texte für die Sliderbilder mit __|__ trennen.
+* __change__: Auf _false_ setzen um die Vor- und Zurückpfeile auszublenden.
+* __position__: Auf _false_ setzen um die Positionspunkte auszublenden.
 
-For example, the slider should be include into the header of the template. It should be every 5 seconds change a image and be 640 pixels wide and 400 pixels high.
+Zum Beispiel soll der Slider im Header vom Template eingebunden werden, alle 5 Sekunden das Bild wechseln sowie 640 Pixel breit und 400 Pixel hoch sein.
 
 ```php
 <?php echo do_shortcode('[slider interval="5000" width="640" height="400"]'); ?> 
 ```
 
-#### Font Awesome
-
-Here an example, to use a [_Font Awesome_][5] symbol for the forward and back arrows.
-
-```php
-<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
-```
-
-## Require
-* jQuery [Slider][3]
-* [WordPress Requirements][4]
-
-## Creator
-
-**Stefan Hüsges**
-
-:computer: [Homepage][1]
-
-:octocat: [GitHub][2]
-
-## License
+## Lizenz
 
 [MIT License](LICENSE)
-
-[1]: http://www.mpcx.net
-[2]: https://github.com/tronsha
-[3]: https://github.com/tronsha/slider
-[4]: https://wordpress.org/about/requirements/
-[5]: http://fortawesome.github.io/Font-Awesome/
