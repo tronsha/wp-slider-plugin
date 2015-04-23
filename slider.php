@@ -6,7 +6,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       UPA Slider
- * Plugin URI:        https://github.com/tronsha/wp-slider-plugin/blob/upa/README.md
+ * Plugin URI:        https://github.com/tronsha/wp-slider-plugin/tree/upa
  * Description:       Slider Plugin
  * Version:           1.0.1
  * Author:            UPA-Webdesign
