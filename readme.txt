@@ -1,8 +1,8 @@
 === MPCX Slider ===
 Contributors: deustron
 Tags: slider, responsive
-Requires at least: ?
-Tested up to: 4.0
+Requires at least: 4.0
+Tested up to: 4.2
 Stable tag: 1.0
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
