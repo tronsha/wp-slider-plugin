@@ -1,6 +1,6 @@
 === MPCX Slider ===
 Contributors: deustron
-Tags: slider, responsive
+Tags: slider, responsive, jquery
 Requires at least: 4.0
 Tested up to: 4.2
 Stable tag: 1.0
