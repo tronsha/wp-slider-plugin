@@ -8,7 +8,7 @@
  * Plugin Name:       MPCX Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       Slider Plugin
- * Version:           1.0.1
+ * Version:           1.1.0
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
