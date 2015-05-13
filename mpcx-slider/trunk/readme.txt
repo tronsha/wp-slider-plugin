@@ -17,6 +17,6 @@ Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugi
 
 == Installation ==
 
-1. Unzip and uplaod the Plugin to the `/wp-content/plugins/` directory
+1. Upload the zip file and unzip it in the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. Place `<?php echo do_shortcode('[slider]'); ?>` in your templates
