@@ -9,7 +9,7 @@ License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/L
 
 == Description ==
 
-This is a simple responsive jQuery Slider. 
+Just Another Slider Plugin.
 
 = Documentation =
 
@@ -17,6 +17,6 @@ Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugi
 
 == Installation ==
 
-1. Upload the zip file and unzip it in the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php echo do_shortcode('[slider]'); ?>` in your templates
+1. Upload `mpcx-slider` to the `/wp-content/plugins/` directory.
+1. Activate the plugin through the 'Plugins' menu in WordPress.
+1. Place `<?php echo do_shortcode('[slider]'); ?>` in your templates.
