@@ -236,19 +236,19 @@ function initSlider() {
             'slider',
             plugin_dir_url( __FILE__ ) . 'public/css/slider.css',
             array(),
-            '1.0.0'
+            '1.1.0'
         );
         wp_register_script(
             'slider',
             plugin_dir_url( __FILE__ ) . 'public/js/slider.js',
             array( 'jquery' ),
-            '1.0.0'
+            '1.1.0'
         );
         wp_register_script(
             'slider-responsive',
             plugin_dir_url( __FILE__ ) . 'public/js/responsive.js',
             array( 'jquery', 'slider' ),
-            '1.0.0'
+            '1.1.0'
         );
         wp_enqueue_style( 'slider' );
         wp_enqueue_script( 'slider' );
