@@ -7,8 +7,8 @@
  * @wordpress-plugin
  * Plugin Name:       MPCX Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
- * Description:       Slider Plugin
- * Version:           1.0.1
+ * Description:       Just Another Slider Plugin
+ * Version:           1.1.0
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -67,7 +67,7 @@ class Slider {
 
 	protected function getSlidesFromDir() {
 		$slides = '';
-		$path   = 'slider/slides/';
+		$path   = 'public/slides/';
 		$dir    = realpath( __DIR__ . '/' . $path ) . '/';
 		$type   = array( 'png', 'jpg' );
 		$files  = glob( $dir . '*.{' . implode( ',', $type ) . '}', GLOB_BRACE );
@@ -138,8 +138,8 @@ class Slider {
 			$prevButton .= '<i class="fa ' . ( isset( $this->att['prev'] ) ? $this->att['prev'] : 'fa-chevron-left' ) . '"></i>';
 		} elseif ( file_exists( get_template_directory() . '/images/slider/prev.png' ) ) {
 			$prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
-		} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'slider/images/prev.png' ) ) {
-			$prevButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'slider/images/prev.png" alt="prev">';
+		} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/prev.png' ) ) {
+			$prevButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/prev.png" alt="prev">';
 		} else {
 			$prevButton .= '<div>&#160;</div>';
 		}
@@ -158,8 +158,8 @@ class Slider {
 			$nextButton .= '<i class="fa ' . ( isset( $this->att['next'] ) ? $this->att['next'] : 'fa-chevron-right' ) . '"></i>';
 		} elseif ( file_exists( get_template_directory() . '/images/slider/next.png' ) ) {
 			$nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
-		} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'slider/images/next.png' ) ) {
-			$nextButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'slider/images/next.png" alt="next">';
+		} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/next.png' ) ) {
+			$nextButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/next.png" alt="next">';
 		} else {
 			$nextButton .= '<div>&#160;</div>';
 		}
@@ -234,21 +234,21 @@ function initSlider() {
     if ( ! is_admin() ) {
         wp_register_style(
             'slider',
-            plugin_dir_url( __FILE__ ) . 'slider/css/slider.css',
+            plugin_dir_url( __FILE__ ) . 'public/css/slider.css',
             array(),
-            '1.0.0'
+            '1.1.0'
         );
         wp_register_script(
             'slider',
-            plugin_dir_url( __FILE__ ) . 'slider/js/slider.js',
+            plugin_dir_url( __FILE__ ) . 'public/js/slider.js',
             array( 'jquery' ),
-            '1.0.0'
+            '1.1.0'
         );
         wp_register_script(
             'slider-responsive',
-            plugin_dir_url( __FILE__ ) . 'slider/js/responsive.js',
+            plugin_dir_url( __FILE__ ) . 'public/js/responsive.js',
             array( 'jquery', 'slider' ),
-            '1.0.0'
+            '1.1.0'
         );
         wp_enqueue_style( 'slider' );
         wp_enqueue_script( 'slider' );
