@@ -52,6 +52,10 @@ Here an example, to use a [_Font Awesome_][5] symbol for the forward and back ar
 * jQuery [Slider][3]
 * [WordPress Requirements][4]
 
+## Download
+
+:package: [WordPress Plugins][6]
+
 ## Creator
 
 **Stefan Hüsges**
@@ -69,3 +73,4 @@ Here an example, to use a [_Font Awesome_][5] symbol for the forward and back ar
 [3]: https://github.com/tronsha/slider
 [4]: https://wordpress.org/about/requirements/
 [5]: http://fortawesome.github.io/Font-Awesome/
+[6]: https://wordpress.org/plugins/mpcx-slider/
