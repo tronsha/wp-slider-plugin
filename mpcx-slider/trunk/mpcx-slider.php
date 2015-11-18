@@ -73,7 +73,8 @@ class Slider {
 			$type   = array( 'png', 'jpg' );
 			$files  = glob( $dir . '*.{' . implode( ',', $type ) . '}', GLOB_BRACE );		
 		} else {
-			$files  = array_merge( glob( $dir . '*.png' ), glob( $dir . '*.jpg' ) ) ;
+			$files  = array_merge( glob( $dir . '*.png' ), glob( $dir . '*.jpg' ) );
+			sort( $files );
 		}
 		if ( $files !== false ) {
 			foreach ( $files as $file ) {
