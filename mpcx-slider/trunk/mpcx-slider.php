@@ -69,8 +69,16 @@ class Slider {
 		$slides = '';
 		$path   = 'public/slides/';
 		$dir    = realpath( __DIR__ . '/' . $path ) . '/';
-		$type   = array( 'png', 'jpg' );
-		$files  = glob( $dir . '*.{' . implode( ',', $type ) . '}', GLOB_BRACE );
+		$types   = array( 'png', 'jpg' );
+		if ( defined( 'GLOB_BRACE' ) === true ) {
+			$files  = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
+		} else {
+			$files = array();
+			foreach ( $types as $type ) {
+				$files  = array_merge( $files, glob( $dir . '*.' . $type ) );
+			}
+			sort( $files );
+		}
 		if ( $files !== false ) {
 			foreach ( $files as $file ) {
 				$slides .= '<img src="' . plugin_dir_url( __FILE__ ) . $path . basename( $file ) . '" alt="Slider Image">';
