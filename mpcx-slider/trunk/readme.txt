@@ -1,5 +1,5 @@
 === MPCX Slider ===
-Contributors: deustron
+Contributors: DeusTron
 Tags: slider, images, responsive, jquery, shortcode, plugin
 Requires at least: 4.0
 Tested up to: 4.4
