@@ -8,7 +8,7 @@
  * Plugin Name:       MPCX Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       Just Another Slider Plugin
- * Version:           1.2.1
+ * Version:           1.2.2
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -45,7 +45,7 @@ class Slider {
 			self::$posts = get_posts( array(
 				'offset'         => 0,
 				'category_name'  => 'slides',
-				'posts_per_page' => - 1,
+				'posts_per_page' => -1,
 				'orderby'        => 'ID',
 				'order'          => 'ASC',
 			) );
@@ -241,26 +241,19 @@ class Slider {
 function initSlider() {
     if ( ! is_admin() ) {
         wp_register_style(
-            'slider',
-            plugin_dir_url( __FILE__ ) . 'public/css/slider.css',
+            'mpcx-slider',
+            plugin_dir_url( __FILE__ ) . 'public/css/mpcx-slider.css',
             array(),
-            '1.2.1'
+            '1.2.2'
         );
         wp_register_script(
-            'slider',
-            plugin_dir_url( __FILE__ ) . 'public/js/slider.js',
+            'mpcx-slider',
+            plugin_dir_url( __FILE__ ) . 'public/js/mpcx-slider.js',
             array( 'jquery' ),
-            '1.2.1'
+            '1.2.2'
         );
-        wp_register_script(
-            'slider-responsive',
-            plugin_dir_url( __FILE__ ) . 'public/js/responsive.js',
-            array( 'jquery', 'slider' ),
-            '1.2.1'
-        );
-        wp_enqueue_style( 'slider' );
-        wp_enqueue_script( 'slider' );
-        wp_enqueue_script( 'slider-responsive' );
+        wp_enqueue_style( 'mpcx-slider' );
+        wp_enqueue_script( 'mpcx-slider' );
     }
     add_theme_support( 'post-thumbnails' );
 }
