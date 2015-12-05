@@ -8,7 +8,7 @@
  * Plugin Name:       MPCX Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       Just Another Slider Plugin
- * Version:           1.1.0
+ * Version:           1.2.2
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -45,7 +45,7 @@ class Slider {
 			self::$posts = get_posts( array(
 				'offset'         => 0,
 				'category_name'  => 'slides',
-				'posts_per_page' => - 1,
+				'posts_per_page' => -1,
 				'orderby'        => 'ID',
 				'order'          => 'ASC',
 			) );
@@ -69,8 +69,16 @@ class Slider {
 		$slides = '';
 		$path   = 'public/slides/';
 		$dir    = realpath( __DIR__ . '/' . $path ) . '/';
-		$type   = array( 'png', 'jpg' );
-		$files  = glob( $dir . '*.{' . implode( ',', $type ) . '}', GLOB_BRACE );
+		$types   = array( 'png', 'jpg' );
+		if ( defined( 'GLOB_BRACE' ) === true ) {
+			$files  = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
+		} else {
+			$files = array();
+			foreach ( $types as $type ) {
+				$files  = array_merge( $files, glob( $dir . '*.' . $type ) );
+			}
+			sort( $files );
+		}
 		if ( $files !== false ) {
 			foreach ( $files as $file ) {
 				$slides .= '<img src="' . plugin_dir_url( __FILE__ ) . $path . basename( $file ) . '" alt="Slider Image">';
@@ -121,9 +129,9 @@ class Slider {
 	protected function loadFontAwesome() {
 		wp_register_style(
 			'fontawesome',
-			'//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+			'//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
 			array(),
-			'4.3.0'
+			'4.5.0'
 		);
 		wp_enqueue_style( 'fontawesome' );
 	}
@@ -233,26 +241,19 @@ class Slider {
 function initSlider() {
     if ( ! is_admin() ) {
         wp_register_style(
-            'slider',
-            plugin_dir_url( __FILE__ ) . 'public/css/slider.css',
+            'mpcx-slider',
+            plugin_dir_url( __FILE__ ) . 'public/css/mpcx-slider.css',
             array(),
-            '1.1.0'
+            '1.2.2'
         );
         wp_register_script(
-            'slider',
-            plugin_dir_url( __FILE__ ) . 'public/js/slider.js',
+            'mpcx-slider',
+            plugin_dir_url( __FILE__ ) . 'public/js/mpcx-slider.js',
             array( 'jquery' ),
-            '1.1.0'
+            '1.2.2'
         );
-        wp_register_script(
-            'slider-responsive',
-            plugin_dir_url( __FILE__ ) . 'public/js/responsive.js',
-            array( 'jquery', 'slider' ),
-            '1.1.0'
-        );
-        wp_enqueue_style( 'slider' );
-        wp_enqueue_script( 'slider' );
-        wp_enqueue_script( 'slider-responsive' );
+        wp_enqueue_style( 'mpcx-slider' );
+        wp_enqueue_script( 'mpcx-slider' );
     }
     add_theme_support( 'post-thumbnails' );
 }
