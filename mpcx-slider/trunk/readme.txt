@@ -2,8 +2,8 @@
 Contributors: DeusTron
 Tags: slider, images, responsive, jquery, shortcode, plugin
 Requires at least: 4.0
-Tested up to: 4.4
-Stable tag: 1.0
+Tested up to: 4.5
+Stable tag: 1.2.5
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
 
