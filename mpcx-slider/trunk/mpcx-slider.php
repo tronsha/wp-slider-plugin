@@ -260,7 +260,6 @@ function initSlider() {
 
 function shortcodeSlider( $att = array(), $content = null ) {
     $slider = new MpcxSlider( $att, $content );
-
     return $slider->render();
 }
 
