@@ -7,9 +7,11 @@ Stable tag: 1.2.6
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
 
+A responsive Slider Plugin
+
 == Description ==
 
-A responsive Slider Plugin
+[Source Code on GitHub](https://github.com/tronsha/wp-slider-plugin)
 
 = Documentation =
 
