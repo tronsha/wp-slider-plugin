@@ -45,7 +45,7 @@ class MpcxSlider {
 			self::$posts = get_posts( array(
 				'offset'         => 0,
 				'category_name'  => 'slides',
-				'posts_per_page' => -1,
+				'posts_per_page' => - 1,
 				'orderby'        => 'ID',
 				'order'          => 'ASC',
 			) );
@@ -69,13 +69,13 @@ class MpcxSlider {
 		$slides = '';
 		$path   = 'public/slides/';
 		$dir    = realpath( __DIR__ . '/' . $path ) . '/';
-		$types   = array( 'png', 'jpg' );
+		$types  = array( 'png', 'jpg' );
 		if ( defined( 'GLOB_BRACE' ) === true ) {
-			$files  = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
+			$files = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
 		} else {
 			$files = array();
 			foreach ( $types as $type ) {
-				$files  = array_merge( $files, glob( $dir . '*.' . $type ) );
+				$files = array_merge( $files, glob( $dir . '*.' . $type ) );
 			}
 			sort( $files );
 		}
@@ -239,28 +239,29 @@ class MpcxSlider {
 }
 
 function initSlider() {
-    if ( ! is_admin() ) {
-        wp_register_style(
-            'mpcx-slider',
-            plugin_dir_url( __FILE__ ) . 'public/css/mpcx-slider.min.css',
-            array(),
-            '1.2.6'
-        );
-        wp_register_script(
-            'mpcx-slider',
-            plugin_dir_url( __FILE__ ) . 'public/js/mpcx-slider.min.js',
-            array( 'jquery' ),
-            '1.2.6'
-        );
-        wp_enqueue_style( 'mpcx-slider' );
-        wp_enqueue_script( 'mpcx-slider' );
-    }
-    add_theme_support( 'post-thumbnails' );
+	if ( ! is_admin() ) {
+		wp_register_style(
+			'mpcx-slider',
+			plugin_dir_url( __FILE__ ) . 'public/css/mpcx-slider.min.css',
+			array(),
+			'1.2.6'
+		);
+		wp_register_script(
+			'mpcx-slider',
+			plugin_dir_url( __FILE__ ) . 'public/js/mpcx-slider.min.js',
+			array( 'jquery' ),
+			'1.2.6'
+		);
+		wp_enqueue_style( 'mpcx-slider' );
+		wp_enqueue_script( 'mpcx-slider' );
+	}
+	add_theme_support( 'post-thumbnails' );
 }
 
 function shortcodeSlider( $att = array(), $content = null ) {
-    $slider = new MpcxSlider( $att, $content );
-    return $slider->render();
+	$slider = new MpcxSlider( $att, $content );
+
+	return $slider->render();
 }
 
 add_action( 'init', 'initSlider' );
