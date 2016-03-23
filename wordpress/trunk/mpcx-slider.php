@@ -45,7 +45,7 @@ class MpcxSlider {
 			self::$posts = get_posts( array(
 				'offset'         => 0,
 				'category_name'  => 'slides',
-				'posts_per_page' => -1,
+				'posts_per_page' => - 1,
 				'orderby'        => 'ID',
 				'order'          => 'ASC',
 			) );
@@ -69,13 +69,13 @@ class MpcxSlider {
 		$slides = '';
 		$path   = 'public/slides/';
 		$dir    = realpath( __DIR__ . '/' . $path ) . '/';
-		$types   = array( 'png', 'jpg' );
+		$types  = array( 'png', 'jpg' );
 		if ( defined( 'GLOB_BRACE' ) === true ) {
-			$files  = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
+			$files = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
 		} else {
 			$files = array();
 			foreach ( $types as $type ) {
-				$files  = array_merge( $files, glob( $dir . '*.' . $type ) );
+				$files = array_merge( $files, glob( $dir . '*.' . $type ) );
 			}
 			sort( $files );
 		}
@@ -260,6 +260,7 @@ function initSlider() {
 
 function shortcodeSlider( $att = array(), $content = null ) {
 	$slider = new MpcxSlider( $att, $content );
+
 	return $slider->render();
 }
 
