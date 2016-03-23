@@ -1,15 +1,15 @@
-=== MPCX Slider ===
+=== Slider ===
 Contributors: DeusTron
 Tags: slider, images, responsive, jquery, shortcode, plugin
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
 
 == Description ==
 
-Just Another Slider Plugin.
+A responsive Slider Plugin
 
 = Documentation =
 

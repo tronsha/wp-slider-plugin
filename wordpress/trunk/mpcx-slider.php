@@ -5,10 +5,10 @@
  * @package           wp-slider-plugin
  *
  * @wordpress-plugin
- * Plugin Name:       MPCX Slider
+ * Plugin Name:       Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
- * Description:       Just Another Slider Plugin
- * Version:           1.2.5
+ * Description:       A responsive Slider Plugin
+ * Version:           1.2.6
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -244,13 +244,13 @@ function initSlider() {
             'mpcx-slider',
             plugin_dir_url( __FILE__ ) . 'public/css/mpcx-slider.min.css',
             array(),
-            '1.2.5'
+            '1.2.6'
         );
         wp_register_script(
             'mpcx-slider',
             plugin_dir_url( __FILE__ ) . 'public/js/mpcx-slider.min.js',
             array( 'jquery' ),
-            '1.2.5'
+            '1.2.6'
         );
         wp_enqueue_style( 'mpcx-slider' );
         wp_enqueue_script( 'mpcx-slider' );
