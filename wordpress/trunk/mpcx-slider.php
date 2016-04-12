@@ -8,7 +8,7 @@
  * Plugin Name:       Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       A responsive Slider Plugin
- * Version:           1.2.6
+ * Version:           1.2.7
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -237,32 +237,36 @@ class MpcxSlider {
 		return '';
 	}
 }
+if ( ! is_admin() ) {
 
-function initSlider() {
-	if ( ! is_admin() ) {
-		wp_register_style(
-			'mpcx-slider',
-			plugin_dir_url( __FILE__ ) . 'public/css/mpcx-slider.min.css',
-			array(),
-			'1.2.6'
-		);
-		wp_register_script(
-			'mpcx-slider',
-			plugin_dir_url( __FILE__ ) . 'public/js/mpcx-slider.min.js',
-			array( 'jquery' ),
-			'1.2.6'
-		);
-		wp_enqueue_style( 'mpcx-slider' );
-		wp_enqueue_script( 'mpcx-slider' );
-	}
-	add_theme_support( 'post-thumbnails' );
+	add_action(
+		'init',
+		function () {
+			wp_register_style(
+				'mpcx-slider',
+				plugin_dir_url( __FILE__ ) . 'public/css/slider.min.css',
+				array(),
+				'1.2.7'
+			);
+			wp_register_script(
+				'mpcx-slider',
+				plugin_dir_url( __FILE__ ) . 'public/js/slider.min.js',
+				array( 'jquery' ),
+				'1.2.7'
+			);
+			wp_enqueue_style( 'mpcx-slider' );
+			wp_enqueue_script( 'mpcx-slider' );
+		}
+	);
+
+	add_shortcode(
+		'slider',
+		function ( $att = array(), $content = null ) {
+			$slider = new MpcxSlider( $att, $content );
+			return $slider->render();
+		}
+	);
+
 }
 
-function shortcodeSlider( $att = array(), $content = null ) {
-	$slider = new MpcxSlider( $att, $content );
-
-	return $slider->render();
-}
-
-add_action( 'init', 'initSlider' );
-add_shortcode( 'slider', 'shortcodeSlider' );
+add_theme_support( 'post-thumbnails' );
