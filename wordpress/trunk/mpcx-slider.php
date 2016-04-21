@@ -7,8 +7,8 @@
  * @wordpress-plugin
  * Plugin Name:       Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
- * Description:       A responsive Slider Plugin
- * Version:           1.2.8
+ * Description:       A responsive Slider Plugin.
+ * Version:           1.3.0
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -110,6 +110,9 @@ class MpcxSlider {
 		if ( isset( $this->att['interval'] ) === true ) {
 			$options .= 'interval: ' . $this->att['interval'] . ', ';
 		}
+		if ( isset( $this->att['random'] ) === true && $this->att['random'] === 'true' ) {
+			$options .= 'random: true, ';
+		}
 
 		return $options;
 	}
@@ -137,51 +140,53 @@ class MpcxSlider {
 	}
 
 	protected function getButtonPrev() {
-		if ( isset( $this->att['change'] ) === true && $this->att['change'] === 'false' ) {
-			return '';
-		}
-		$prevButton = '<div class="prev">';
-		if ( isset( $this->att['change'] ) === true && $this->att['change'] === 'fa' ) {
-			$this->loadFontAwesome();
-			$prevButton .= '<i class="fa ' . ( isset( $this->att['prev'] ) ? $this->att['prev'] : 'fa-chevron-left' ) . '"></i>';
-		} elseif ( file_exists( get_template_directory() . '/images/slider/prev.png' ) ) {
-			$prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
-		} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/prev.png' ) ) {
-			$prevButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/prev.png" alt="prev">';
-		} else {
-			$prevButton .= '<div>&#160;</div>';
-		}
-		$prevButton .= '</div>';
+		if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+			$prevButton = '<div class="prev">';
+			if ( $this->att['change'] === 'fa' ) {
+				$this->loadFontAwesome();
+				$prevButton .= '<i class="fa ' . ( isset( $this->att['prev'] ) ? $this->att['prev'] : 'fa-chevron-left' ) . '"></i>';
+			} elseif ( file_exists( get_template_directory() . '/images/slider/prev.png' ) ) {
+				$prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
+			} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/prev.png' ) ) {
+				$prevButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/prev.png" alt="prev">';
+			} else {
+				$prevButton .= '<div>&#160;</div>';
+			}
+			$prevButton .= '</div>';
 
-		return $prevButton;
+			return $prevButton;
+		}
+
+		return '';
 	}
 
 	protected function getButtonNext() {
-		if ( isset( $this->att['change'] ) === true && $this->att['change'] === 'false' ) {
-			return '';
-		}
-		$nextButton = '<div class="next">';
-		if ( isset( $this->att['change'] ) === true && $this->att['change'] === 'fa' ) {
-			$this->loadFontAwesome();
-			$nextButton .= '<i class="fa ' . ( isset( $this->att['next'] ) ? $this->att['next'] : 'fa-chevron-right' ) . '"></i>';
-		} elseif ( file_exists( get_template_directory() . '/images/slider/next.png' ) ) {
-			$nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
-		} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/next.png' ) ) {
-			$nextButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/next.png" alt="next">';
-		} else {
-			$nextButton .= '<div>&#160;</div>';
-		}
-		$nextButton .= '</div>';
+		if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+			$nextButton = '<div class="next">';
+			if ( $this->att['change'] === 'fa' ) {
+				$this->loadFontAwesome();
+				$nextButton .= '<i class="fa ' . ( isset( $this->att['next'] ) ? $this->att['next'] : 'fa-chevron-right' ) . '"></i>';
+			} elseif ( file_exists( get_template_directory() . '/images/slider/next.png' ) ) {
+				$nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
+			} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/next.png' ) ) {
+				$nextButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/next.png" alt="next">';
+			} else {
+				$nextButton .= '<div>&#160;</div>';
+			}
+			$nextButton .= '</div>';
 
-		return $nextButton;
+			return $nextButton;
+		}
+
+		return '';
 	}
 
 	protected function getPositionBar() {
-		if ( isset( $this->att['position'] ) === true && $this->att['position'] === 'false' ) {
-			return '';
+		if ( isset( $this->att['position'] ) === true && $this->att['position'] === 'true' ) {
+			return '<div class="position"></div>';
 		}
 
-		return '<div class="position"></div>';
+		return '';
 	}
 
 	protected function getText() {
@@ -246,13 +251,13 @@ if ( ! is_admin() ) {
 				'mpcx-slider',
 				plugin_dir_url( __FILE__ ) . 'public/css/slider.min.css',
 				array(),
-				'1.2.8'
+				'1.3.0'
 			);
 			wp_register_script(
 				'mpcx-slider',
 				plugin_dir_url( __FILE__ ) . 'public/js/slider.min.js',
 				array( 'jquery' ),
-				'1.2.8'
+				'1.3.0'
 			);
 			wp_enqueue_style( 'mpcx-slider' );
 			wp_enqueue_script( 'mpcx-slider' );
