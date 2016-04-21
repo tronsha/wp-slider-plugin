@@ -12,7 +12,7 @@ If you want to use the slider in the template so you can integrate it as follows
 <?php echo do_shortcode('[slider]'); ?> 
 ```
 
-In this short form are all _.jpg_ and _.png_ images from the directory _wp-content/plugins/wp-slider-plugin/slider/slides/_ used by the Slider. 
+In this short form are all _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/slider/slides/_ used by the Slider.
 
 It can also use the WordPress Gallery. 
 
@@ -26,18 +26,17 @@ Select for gallery `size="full"` or the desired image size.
 
 ### Attributes 
 
+* __interval__: Waiting time to display the next slide. In milliseconds. Default: 10000
 * __delay__: Time for changing. In milliseconds. Default: 1000
-* __interval__: Waiting time to display the next slide. In milliseconds. Default: 10000 
-* __width__: Width of the slider. Default: As wide as possible. 
-* __height__: Height of the slider. Will be overwritten using the responsive.js. 
-* __text__: Show Text Box. Separate the texts for the slides with __|__. 
-* __change__: Set to _false_ to hide the forward and back arrows.
-* __position__: Set to _false_ to hide the position points.
+* __random__: Set _true_ to show slides random. Default: false
+* __change__: Set _true_ to show the forward and back arrows. Default: false
+* __position__: Set _true_ to show the position points. Default: false
+* __text__: Show Text Box. Separate with __|__.
 
-For example, the slider should be include into the header of the template. It should be every 5 seconds change a image and be 640 pixels wide and 400 pixels high.
+For example, the slider should be include into the header of the template. It should be every 5 seconds change a image.
 
 ```php
-<?php echo do_shortcode('[slider interval="5000" width="640" height="400"]'); ?> 
+<?php echo do_shortcode('[slider interval="5000"]'); ?>
 ```
 
 #### Font Awesome
