@@ -8,7 +8,7 @@
  * Plugin Name:       Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       A responsive Slider Plugin.
- * Version:           1.3.0
+ * Version:           1.3.1
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -18,208 +18,198 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-class MpcxSlider {
-	private static $id = 0;
-	private static $posts = null;
-	private $att = array();
-	private $content = null;
+if ( ! class_exists( 'MpcxSlider' ) ) {
 
-	public function __construct( $att = array(), $content = null ) {
-		$this->att     = $att;
-		$this->content = $content;
-		self::$id ++;
-	}
+	class MpcxSlider {
 
-	protected function cleanContent( $content ) {
-		preg_match_all( '/<img[^>]+>/i', $content, $matches );
-		$content = '';
-		foreach ( $matches[0] as $image ) {
-			$content .= $image;
+		private static $id = 0;
+		private static $posts = null;
+		private $att = array();
+		private $content = null;
+
+		public function __construct( $att = array(), $content = null ) {
+			$this->att     = $att;
+			$this->content = $content;
+			self::$id ++;
 		}
 
-		return $content;
-	}
-
-	protected function getPosts( $x = true ) {
-		if ( self::$posts === null && $x === true ) {
-			self::$posts = get_posts( array(
-				'offset'         => 0,
-				'category_name'  => 'slides',
-				'posts_per_page' => - 1,
-				'orderby'        => 'ID',
-				'order'          => 'ASC',
-			) );
-		}
-
-		return self::$posts;
-	}
-
-	protected function getSlidesFromPosts() {
-		$slides = '';
-		$posts  = $this->getPosts();
-		foreach ( $posts as $post ) {
-			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$slides .= '<img src="' . $image_src[0] . '" alt="' . $post->post_title . '">';
-		}
-
-		return $slides;
-	}
-
-	protected function getSlidesFromDir() {
-		$slides = '';
-		$path   = 'public/slides/';
-		$dir    = realpath( __DIR__ . '/' . $path ) . '/';
-		$types  = array( 'png', 'jpg' );
-		if ( defined( 'GLOB_BRACE' ) === true ) {
-			$files = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
-		} else {
-			$files = array();
-			foreach ( $types as $type ) {
-				$files = array_merge( $files, glob( $dir . '*.' . $type ) );
+		protected function cleanContent( $content ) {
+			preg_match_all( '/<img[^>]+>/i', $content, $matches );
+			$content = '';
+			foreach ( $matches[0] as $image ) {
+				$content .= $image;
 			}
-			sort( $files );
+			return $content;
 		}
-		if ( $files !== false ) {
-			foreach ( $files as $file ) {
-				$slides .= '<img src="' . plugin_dir_url( __FILE__ ) . $path . basename( $file ) . '" alt="Slider Image">';
+
+		protected function getPosts( $x = true ) {
+			if ( self::$posts === null && $x === true ) {
+				self::$posts = get_posts( array(
+					'offset'         => 0,
+					'category_name'  => 'slides',
+					'posts_per_page' => - 1,
+					'orderby'        => 'ID',
+					'order'          => 'ASC',
+				) );
 			}
+			return self::$posts;
 		}
 
-		return $slides;
-	}
-
-	protected function getSlides() {
-		if ( empty( $this->content ) === false ) {
-			$content = do_shortcode( $this->content );
-			$slides  = $this->cleanContent( $content );
-		} else {
-			$slides = $this->getSlidesFromPosts();
-			if ( empty( $slides ) === true ) {
-				$slides = $this->getSlidesFromDir();
+		protected function getSlidesFromPosts() {
+			$slides = '';
+			$posts  = $this->getPosts();
+			foreach ( $posts as $post ) {
+				$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+				$slides .= '<img src="' . $image_src[0] . '" alt="' . $post->post_title . '">';
 			}
+			return $slides;
 		}
 
-		return $slides;
-	}
-
-	protected function getSliderOptions() {
-		$options = '';
-		if ( isset( $this->att['delay'] ) === true ) {
-			$options .= 'delay: ' . $this->att['delay'] . ', ';
-		}
-		if ( isset( $this->att['interval'] ) === true ) {
-			$options .= 'interval: ' . $this->att['interval'] . ', ';
-		}
-		if ( isset( $this->att['random'] ) === true && $this->att['random'] === 'true' ) {
-			$options .= 'random: true, ';
-		}
-
-		return $options;
-	}
-
-	protected function getSliderStyle() {
-		$style = '';
-		if ( isset( $this->att['height'] ) === true ) {
-			$style .= 'height: ' . $this->att['height'] . 'px; ';
-		}
-		if ( isset( $this->att['width'] ) === true ) {
-			$style .= 'width: ' . $this->att['width'] . 'px; ';
-		}
-
-		return $style;
-	}
-
-	protected function loadFontAwesome() {
-		wp_register_style(
-			'fontawesome',
-			plugin_dir_url( __FILE__ ) . 'public/css/font-awesome.min.css',
-			array(),
-			'4.6.1'
-		);
-		wp_enqueue_style( 'fontawesome' );
-	}
-
-	protected function getButtonPrev() {
-		if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
-			$prevButton = '<div class="prev">';
-			if ( $this->att['change'] === 'fa' ) {
-				$this->loadFontAwesome();
-				$prevButton .= '<i class="fa ' . ( isset( $this->att['prev'] ) ? $this->att['prev'] : 'fa-chevron-left' ) . '"></i>';
-			} elseif ( file_exists( get_template_directory() . '/images/slider/prev.png' ) ) {
-				$prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
-			} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/prev.png' ) ) {
-				$prevButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/prev.png" alt="prev">';
+		protected function getSlidesFromDir() {
+			$slides = '';
+			$path   = 'public/slides/';
+			$dir    = realpath( __DIR__ . '/' . $path ) . '/';
+			$types  = array( 'png', 'jpg' );
+			if ( defined( 'GLOB_BRACE' ) === true ) {
+				$files = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
 			} else {
-				$prevButton .= '<div>&#160;</div>';
+				$files = array();
+				foreach ( $types as $type ) {
+					$files = array_merge( $files, glob( $dir . '*.' . $type ) );
+				}
+				sort( $files );
 			}
-			$prevButton .= '</div>';
-
-			return $prevButton;
+			if ( $files !== false ) {
+				foreach ( $files as $file ) {
+					$slides .= '<img src="' . plugin_dir_url( __FILE__ ) . $path . basename( $file ) . '" alt="Slider Image">';
+				}
+			}
+			return $slides;
 		}
 
-		return '';
-	}
-
-	protected function getButtonNext() {
-		if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
-			$nextButton = '<div class="next">';
-			if ( $this->att['change'] === 'fa' ) {
-				$this->loadFontAwesome();
-				$nextButton .= '<i class="fa ' . ( isset( $this->att['next'] ) ? $this->att['next'] : 'fa-chevron-right' ) . '"></i>';
-			} elseif ( file_exists( get_template_directory() . '/images/slider/next.png' ) ) {
-				$nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
-			} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/next.png' ) ) {
-				$nextButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/next.png" alt="next">';
+		protected function getSlides() {
+			if ( empty( $this->content ) === false ) {
+				$content = do_shortcode( $this->content );
+				$slides  = $this->cleanContent( $content );
 			} else {
-				$nextButton .= '<div>&#160;</div>';
+				$slides = $this->getSlidesFromPosts();
+				if ( empty( $slides ) === true ) {
+					$slides = $this->getSlidesFromDir();
+				}
 			}
-			$nextButton .= '</div>';
-
-			return $nextButton;
+			return $slides;
 		}
 
-		return '';
-	}
-
-	protected function getPositionBar() {
-		if ( isset( $this->att['position'] ) === true && $this->att['position'] === 'true' ) {
-			return '<div class="position"></div>';
+		protected function getSliderOptions() {
+			$options = '';
+			if ( isset( $this->att['delay'] ) === true ) {
+				$options .= 'delay: ' . $this->att['delay'] . ', ';
+			}
+			if ( isset( $this->att['interval'] ) === true ) {
+				$options .= 'interval: ' . $this->att['interval'] . ', ';
+			}
+			if ( isset( $this->att['random'] ) === true && $this->att['random'] === 'true' ) {
+				$options .= 'random: true, ';
+			}
+			return $options;
 		}
 
-		return '';
-	}
-
-	protected function getText() {
-		if ( isset( $this->att['text'] ) === true ) {
-			$textArray = explode( '|', $this->att['text'] );
-			$textBox   = '<div class="text">';
-			foreach ( $textArray as $key => $sliderText ) {
-				$textBox .= '<span class="' . ( $key == 0 ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
+		protected function getSliderStyle() {
+			$style = '';
+			if ( isset( $this->att['height'] ) === true ) {
+				$style .= 'height: ' . $this->att['height'] . 'px; ';
 			}
-			$textBox .= '</div>';
+			if ( isset( $this->att['width'] ) === true ) {
+				$style .= 'width: ' . $this->att['width'] . 'px; ';
+			}
+			return $style;
+		}
 
-			return $textBox;
-		} else {
-			$posts = $this->getPosts( false );
-			if ( empty( $posts ) === false ) {
-				$textBox = '<div class="text">';
-				$first   = true;
-				foreach ( $posts as $post ) {
-					$textBox .= '<span class="' . ( $first === true ? 'active' : '' ) . ( empty( $post->post_content ) ? ' hidden' : '' ) . '">' . $post->post_content . '</span>';
-					$first = false;
+		protected function loadFontAwesome() {
+			wp_register_style(
+				'fontawesome',
+				plugin_dir_url( __FILE__ ) . 'public/css/font-awesome.min.css',
+				array(),
+				'4.6.1'
+			);
+			wp_enqueue_style( 'fontawesome' );
+		}
+
+		protected function getButtonPrev() {
+			if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+				$prevButton = '<div class="prev">';
+				if ( $this->att['change'] === 'fa' ) {
+					$this->loadFontAwesome();
+					$prevButton .= '<i class="fa ' . ( isset( $this->att['prev'] ) ? $this->att['prev'] : 'fa-chevron-left' ) . '"></i>';
+				} elseif ( file_exists( get_template_directory() . '/images/slider/prev.png' ) ) {
+					$prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
+				} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/prev.png' ) ) {
+					$prevButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/prev.png" alt="prev">';
+				} else {
+					$prevButton .= '<div>&#160;</div>';
+				}
+				$prevButton .= '</div>';
+
+				return $prevButton;
+			}
+			return '';
+		}
+
+		protected function getButtonNext() {
+			if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+				$nextButton = '<div class="next">';
+				if ( $this->att['change'] === 'fa' ) {
+					$this->loadFontAwesome();
+					$nextButton .= '<i class="fa ' . ( isset( $this->att['next'] ) ? $this->att['next'] : 'fa-chevron-right' ) . '"></i>';
+				} elseif ( file_exists( get_template_directory() . '/images/slider/next.png' ) ) {
+					$nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
+				} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/next.png' ) ) {
+					$nextButton .= '<img src="' . plugin_dir_url( __FILE__ ) . 'public/images/next.png" alt="next">';
+				} else {
+					$nextButton .= '<div>&#160;</div>';
+				}
+				$nextButton .= '</div>';
+
+				return $nextButton;
+			}
+			return '';
+		}
+
+		protected function getPositionBar() {
+			if ( isset( $this->att['position'] ) === true && $this->att['position'] === 'true' ) {
+				return '<div class="position"></div>';
+			}
+			return '';
+		}
+
+		protected function getText() {
+			if ( isset( $this->att['text'] ) === true ) {
+				$textArray = explode( '|', $this->att['text'] );
+				$textBox   = '<div class="text">';
+				foreach ( $textArray as $key => $sliderText ) {
+					$textBox .= '<span class="' . ( $key == 0 ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
 				}
 				$textBox .= '</div>';
-
 				return $textBox;
+			} else {
+				$posts = $this->getPosts( false );
+				if ( empty( $posts ) === false ) {
+					$textBox = '<div class="text">';
+					$first   = true;
+					foreach ( $posts as $post ) {
+						$textBox .= '<span class="' . ( $first === true ? 'active' : '' ) . ( empty( $post->post_content ) ? ' hidden' : '' ) . '">' . $post->post_content . '</span>';
+						$first = false;
+					}
+					$textBox .= '</div>';
+					return $textBox;
+				}
 			}
+			return '';
 		}
 
-		return '';
-	}
-
-	public function render() {
-		$slides = $this->getSlides();
-		$output = '
+		public function render() {
+			$slides = $this->getSlides();
+			$output = '
             <div id="slider-' . self::$id . '" class="slider" style="' . $this->getSliderStyle() . '">
                 <div class="slides">
                 ' . $slides . '
@@ -234,13 +224,16 @@ class MpcxSlider {
                     jQuery("#slider-' . self::$id . '").slider({' . $this->getSliderOptions() . '});
                 });
             </script>
-        ';
-		if ( empty( $slides ) === false ) {
-			return $output;
+            ';
+			if ( empty( $slides ) === false ) {
+				return $output;
+			}
+
+			return '';
 		}
 
-		return '';
 	}
+
 }
 if ( ! is_admin() ) {
 
@@ -251,13 +244,13 @@ if ( ! is_admin() ) {
 				'mpcx-slider',
 				plugin_dir_url( __FILE__ ) . 'public/css/slider.min.css',
 				array(),
-				'1.3.0'
+				'1.3.1'
 			);
 			wp_register_script(
 				'mpcx-slider',
 				plugin_dir_url( __FILE__ ) . 'public/js/slider.min.js',
 				array( 'jquery' ),
-				'1.3.0'
+				'1.3.1'
 			);
 			wp_enqueue_style( 'mpcx-slider' );
 			wp_enqueue_script( 'mpcx-slider' );
