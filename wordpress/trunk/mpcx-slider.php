@@ -25,18 +25,50 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 	class MpcxSlider {
 
 		private static $id = 0;
+		private static $instance = null;
 		private static $posts = null;
 		private $att = array();
 		private $content = null;
 
-		public function __construct( $att = array(), $content = null ) {
-			$this->att     = $att;
-			$this->content = $content;
-			self::$id ++;
+		protected function __construct() {
+			add_theme_support( 'post-thumbnails' );
+			if ( ! is_admin() ) {
+				$this->enqueueScripts();
+				$this->addShortcode();
+			}
+		}
+
+		protected function addShortcode() {
+			add_shortcode( 'slider', array( 'MpcxSlider', 'renderSlider' ) );
+		}
+
+		protected function enqueueScripts() {
+			wp_register_style(
+				'mpcx-slider',
+				plugin_dir_url( __FILE__ ) . 'public/css/slider.min.css',
+				array(),
+				$this->getVersion()
+			);
+			wp_register_script(
+				'mpcx-slider',
+				plugin_dir_url( __FILE__ ) . 'public/js/slider.min.js',
+				array( 'jquery' ),
+				$this->getVersion()
+			);
+			wp_enqueue_style( 'mpcx-slider' );
+			wp_enqueue_script( 'mpcx-slider' );
 		}
 
 		protected function getVersion() {
 			return MPCX_SLIDER_VERSION;
+		}
+
+		protected function setAttribute($att) {
+			$this->att = $att;
+		}
+
+		protected function setContent($content) {
+			$this->content = $content;
 		}
 
 		protected function cleanContent( $content ) {
@@ -213,7 +245,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return '';
 		}
 
-		public function render() {
+		protected function getHtml() {
 			$slides = $this->getSlides();
 			$output = '
             <div id="slider-' . self::$id . '" class="slider" style="' . $this->getSliderStyle() . '">
@@ -238,39 +270,23 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return '';
 		}
 
+		public static function renderSlider( $att = array(), $content = null ) {
+			self::$id ++;
+			$slider = self::getInstance();
+			$slider->setAttribute( $att );
+			$slider->setContent( $content );
+			return $slider->getHtml();
+		}
+
+		public static function getInstance() {
+			if ( self::$instance === null ) {
+				self::$instance = new self;
+			}
+			return self::$instance;
+		}
+
 	}
 
 }
-if ( ! is_admin() ) {
 
-	add_action(
-		'init',
-		function () {
-			wp_register_style(
-				'mpcx-slider',
-				plugin_dir_url( __FILE__ ) . 'public/css/slider.min.css',
-				array(),
-				MPCX_SLIDER_VERSION
-			);
-			wp_register_script(
-				'mpcx-slider',
-				plugin_dir_url( __FILE__ ) . 'public/js/slider.min.js',
-				array( 'jquery' ),
-				MPCX_SLIDER_VERSION
-			);
-			wp_enqueue_style( 'mpcx-slider' );
-			wp_enqueue_script( 'mpcx-slider' );
-		}
-	);
-
-	add_shortcode(
-		'slider',
-		function ( $att = array(), $content = null ) {
-			$slider = new MpcxSlider( $att, $content );
-			return $slider->render();
-		}
-	);
-
-}
-
-add_theme_support( 'post-thumbnails' );
+MpcxSlider::getInstance();

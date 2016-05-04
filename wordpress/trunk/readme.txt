@@ -27,6 +27,9 @@ Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugi
 
 == Changelog ==
 
+= 1.3.2 =
+* changed class structure
+
 = 1.3.1 =
 * checked if class exists
 
