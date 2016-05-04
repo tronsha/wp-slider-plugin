@@ -3,7 +3,7 @@ Contributors: DeusTron
 Tags: slider, images, responsive, random, jquery, shortcode, plugin
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.3.0
+Stable tag: 1.3.2
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
 
@@ -26,6 +26,12 @@ Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugi
 1. Place `<?php echo do_shortcode('[slider]'); ?>` in your templates.
 
 == Changelog ==
+
+= 1.3.2 =
+* changed class structure
+
+= 1.3.1 =
+* checked if class exists
 
 = 1.3.0 =
 * added random
