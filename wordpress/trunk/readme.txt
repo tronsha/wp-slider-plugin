@@ -29,9 +29,8 @@ Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugi
 
 = 1.3.2 =
 * changed class structure
-
-= 1.3.1 =
-* checked if class exists
+* added check if class exists
+* fixed random after hover
 
 = 1.3.0 =
 * added random
