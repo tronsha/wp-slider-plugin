@@ -1,5 +1,6 @@
 === Slider ===
 Contributors: DeusTron
+Donate link: http://www.mpcx.net/wordpress/donate/
 Tags: slider, images, responsive, random, jquery, shortcode, plugin
 Requires at least: 4.0
 Tested up to: 4.5
