@@ -1,9 +1,10 @@
 === Slider ===
 Contributors: DeusTron
+Donate link: http://www.mpcx.net/wordpress/donate/
 Tags: slider, images, responsive, random, jquery, shortcode, plugin
 Requires at least: 4.0
-Tested up to: 4.5
-Stable tag: 1.3.2
+Tested up to: 4.6
+Stable tag: 1.3.4
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
 
@@ -27,11 +28,10 @@ Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugi
 
 == Changelog ==
 
-= 1.3.2 =
+= 1.3.3 =
 * changed class structure
-
-= 1.3.1 =
-* checked if class exists
+* added check if class exists
+* fixed random after hover
 
 = 1.3.0 =
 * added random
