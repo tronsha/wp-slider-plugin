@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-define( 'MPCX_SLIDER_VERSION', '1.3.4' );
+define( 'MPCX_SLIDER_VERSION', '1.3.5' );
 
 if ( ! class_exists( 'MpcxSlider' ) ) {
 
