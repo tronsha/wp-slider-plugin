@@ -8,7 +8,7 @@
  * Plugin Name:       Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       A responsive Slider Plugin.
- * Version:           1.3.4
+ * Version:           1.4.0
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -18,7 +18,16 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-define( 'MPCX_SLIDER_VERSION', '1.3.4' );
+define( 'MPCX_SLIDER_VERSION', '1.4.0' );
+
+load_plugin_textdomain( 'mpcx-slider', false, dirname( plugin_basename( __FILE__ ) ) . '/localization' );
+
+register_activation_hook(
+	__FILE__,
+	function () {
+		add_option( 'mpcx_slider', json_encode( array( 0 => array( 'version' => MPCX_SLIDER_VERSION ) ) ) );
+	}
+);
 
 if ( ! class_exists( 'MpcxSlider' ) ) {
 
@@ -36,6 +45,28 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$this->enqueueScripts();
 				$this->addShortcode();
 			}
+			if ( is_admin() ) {
+				$this->addAdminAction();
+			}
+		}
+
+		protected function addAdminAction () {
+			add_action(
+				'admin_menu',
+				function () {
+					add_menu_page(
+						'Slider',
+						'Slider',
+						'manage_options',
+						'slider',
+						function () {
+							include plugin_dir_path( __FILE__ ) . 'admin/options.php';
+						},
+						'dashicons-clipboard',
+						20
+					);
+				}
+			);
 		}
 
 		protected function addShortcode() {
