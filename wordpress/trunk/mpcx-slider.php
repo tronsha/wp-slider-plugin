@@ -138,11 +138,8 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return $slides;
 		}
 
-		protected function getSlidesFromDir() {
-			$slides = '';
-			$path   = 'public/slides/';
-			$dir    = realpath( __DIR__ . '/' . $path ) . '/';
-			$types  = array( 'png', 'jpg' );
+		protected function getFilesFromDir( $dir ) {
+			$types = array( 'png', 'jpg' );
 			if ( defined( 'GLOB_BRACE' ) === true ) {
 				$files = glob( $dir . '*.{' . implode( ',', $types ) . '}', GLOB_BRACE );
 			} else {
@@ -152,6 +149,27 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				}
 				sort( $files );
 			}
+			return $files;
+		}
+
+		protected function getSlidesFromTemplateDir() {
+			$slides   = '';
+			$path     = 'images/slider/slides/';
+			$dir      = realpath( get_template_directory() . '/' . $path ) . '/';
+			$files    = $this->getFilesFromDir( $dir );
+			if ( $files !== false ) {
+				foreach ( $files as $file ) {
+					$slides .= '<img src="' . get_template_directory_uri() . $path . basename( $file ) . '" alt="Slider Image">';
+				}
+			}
+			return $slides;
+		}
+
+		protected function getSlidesFromPluginDir() {
+			$slides = '';
+			$path   = 'public/slides/';
+			$dir    = realpath( __DIR__ . '/' . $path ) . '/';
+			$files  = $this->getFilesFromDir( $dir );
 			if ( $files !== false ) {
 				foreach ( $files as $file ) {
 					$slides .= '<img src="' . plugin_dir_url( __FILE__ ) . $path . basename( $file ) . '" alt="Slider Image">';
@@ -167,7 +185,10 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			} else {
 				$slides = $this->getSlidesFromPosts();
 				if ( empty( $slides ) === true ) {
-					$slides = $this->getSlidesFromDir();
+					$slides = $this->getSlidesFromTemplateDir();
+				}
+				if ( empty( $slides ) === true ) {
+					$slides = $this->getSlidesFromPluginDir();
 				}
 			}
 			return $slides;
