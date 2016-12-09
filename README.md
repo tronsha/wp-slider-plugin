@@ -12,7 +12,7 @@ If you want to use the slider in the template so you can integrate it as follows
 <?php echo do_shortcode('[slider]'); ?> 
 ```
 
-In this short form are all _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/slider/slides/_ used by the Slider.
+In this short form are all _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/public/slides/_ used by the Slider.
 
 It can also use the WordPress Gallery. 
 
