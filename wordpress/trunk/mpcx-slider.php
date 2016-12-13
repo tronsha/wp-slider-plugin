@@ -126,7 +126,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			$files    = $this->getFilesFromDir( $dir );
 			if ( $files !== false ) {
 				foreach ( $files as $file ) {
-					$slides .= '<img src="' . get_template_directory_uri() . $path . basename( $file ) . '" alt="Slider Image">';
+					$slides .= '<img src="' . get_template_directory_uri() . '/' . $path . basename( $file ) . '" alt="Slider Image">';
 				}
 			}
 			return $slides;
