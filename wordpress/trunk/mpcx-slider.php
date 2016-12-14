@@ -82,6 +82,10 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return $content;
 		}
 
+		protected function getSlidesById( $id = null ) {
+			return;
+		}
+
 		protected function getPosts( $x = true ) {
 			if ( self::$posts === null && $x === true ) {
 				self::$posts = get_posts( array(
@@ -150,7 +154,12 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$content = do_shortcode( $this->content );
 				$slides  = $this->cleanContent( $content );
 			} else {
-				$slides = $this->getSlidesFromPosts();
+				if ( isset( $this->att['id'] ) === true ) {
+					$slides = $this->getSlidesById( $this->att['id'] );
+				}
+				if ( empty( $slides ) === true ) {
+					$slides = $this->getSlidesFromPosts();
+				}
 				if ( empty( $slides ) === true ) {
 					$slides = $this->getSlidesFromTemplateDir();
 				}
