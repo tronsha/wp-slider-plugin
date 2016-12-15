@@ -65,7 +65,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return MPCX_SLIDER_VERSION;
 		}
 
-		protected function setAttribute($att) {
+		protected function setAttributes($att) {
 			$this->att = $att;
 		}
 
@@ -305,7 +305,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		public static function renderSlider( $att = array(), $content = null ) {
 			self::$id ++;
 			$slider = self::getInstance();
-			$slider->setAttribute( $att );
+			$slider->setAttributes( $att );
 			$slider->setContent( $content );
 			return $slider->getHtml();
 		}
