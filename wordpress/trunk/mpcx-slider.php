@@ -65,11 +65,11 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return MPCX_SLIDER_VERSION;
 		}
 
-		protected function setAttributes($att) {
+		protected function setAttributes( $att ) {
 			$this->att = $att;
 		}
 
-		protected function setContent($content) {
+		protected function setContent( $content ) {
 			$this->content = $content;
 		}
 
