@@ -65,6 +65,17 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return MPCX_SLIDER_VERSION;
 		}
 
+		protected function getAttribute( $key ) {
+			if ( isset( $this->att[ $key ] ) === true ) {
+				return $this->att[ $key ];
+			}
+			return null;
+		}
+
+		protected function setAttribute( $key, $value ) {
+			$this->att[ $key ] = $value;
+		}
+
 		protected function setAttributes( $att ) {
 			$this->att = $att;
 		}
