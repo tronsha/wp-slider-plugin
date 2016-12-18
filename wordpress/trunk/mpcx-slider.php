@@ -165,8 +165,9 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$content = do_shortcode( $this->content );
 				$slides  = $this->cleanContent( $content );
 			} else {
-				if ( isset( $this->att['id'] ) === true ) {
-					$slides = $this->getSlidesById( $this->att['id'] );
+				$id = $this->getAttribute( 'id' );
+				if ( $id !== null ) {
+					$slides = $this->getSlidesById( $id );
 				}
 				if ( empty( $slides ) === true ) {
 					$slides = $this->getSlidesFromPosts();
@@ -183,13 +184,15 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 		protected function getSliderOptions() {
 			$options = '';
-			if ( isset( $this->att['delay'] ) === true ) {
-				$options .= 'delay: ' . $this->att['delay'] . ', ';
+			$delay = $this->getAttribute( 'delay' );
+			if ( $delay !== null ) {
+				$options .= 'delay: ' . $delay . ', ';
 			}
-			if ( isset( $this->att['interval'] ) === true ) {
-				$options .= 'interval: ' . $this->att['interval'] . ', ';
+			$interval = $this->getAttribute( 'interval' );
+			if ( $interval !== null ) {
+				$options .= 'interval: ' . $interval . ', ';
 			}
-			if ( isset( $this->att['random'] ) === true && $this->att['random'] === 'true' ) {
+			if ( $this->getAttribute( 'random' ) === 'true' ) {
 				$options .= 'random: true, ';
 			}
 			return $options;
@@ -197,11 +200,13 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 		protected function getSliderStyle() {
 			$style = '';
-			if ( isset( $this->att['height'] ) === true ) {
-				$style .= 'height: ' . $this->att['height'] . 'px; ';
+			$height = $this->getAttribute( 'height' );
+			if ( $height !== null ) {
+				$style .= 'height: ' . $height . 'px; ';
 			}
-			if ( isset( $this->att['width'] ) === true ) {
-				$style .= 'width: ' . $this->att['width'] . 'px; ';
+			$width = $this->getAttribute( 'width' );
+			if ( $width !== null ) {
+				$style .= 'width: ' . $width . 'px; ';
 			}
 			return $style;
 		}
@@ -217,11 +222,13 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		}
 
 		protected function getButtonPrev() {
-			if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+			$change = $this->getAttribute( 'change' );
+			if ( $change === 'true' || $change === 'fa' ) {
 				$prevButton = '<div class="prev">';
-				if ( $this->att['change'] === 'fa' ) {
+				if ( $change === 'fa' ) {
 					$this->loadFontAwesome();
-					$prevButton .= '<i class="fa ' . ( isset( $this->att['prev'] ) ? $this->att['prev'] : 'fa-chevron-left' ) . '"></i>';
+					$prev = $this->getAttribute( 'prev' );
+					$prevButton .= '<i class="fa ' . ( $prev !== null ? $prev : 'fa-chevron-left' ) . '"></i>';
 				} elseif ( file_exists( get_template_directory() . '/images/slider/prev.png' ) ) {
 					$prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
 				} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/prev.png' ) ) {
@@ -237,11 +244,13 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		}
 
 		protected function getButtonNext() {
-			if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+			$change = $this->getAttribute( 'change' );
+			if ( $change === 'true' || $change === 'fa' ) {
 				$nextButton = '<div class="next">';
-				if ( $this->att['change'] === 'fa' ) {
+				if ( $change === 'fa' ) {
 					$this->loadFontAwesome();
-					$nextButton .= '<i class="fa ' . ( isset( $this->att['next'] ) ? $this->att['next'] : 'fa-chevron-right' ) . '"></i>';
+					$next = $this->getAttribute( 'next' );
+					$nextButton .= '<i class="fa ' . ( $next !== null ? $next : 'fa-chevron-right' ) . '"></i>';
 				} elseif ( file_exists( get_template_directory() . '/images/slider/next.png' ) ) {
 					$nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
 				} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/next.png' ) ) {
@@ -257,15 +266,16 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		}
 
 		protected function getPositionBar() {
-			if ( isset( $this->att['position'] ) === true && $this->att['position'] === 'true' ) {
+			if ( $this->getAttribute( 'position' ) === 'true' ) {
 				return '<div class="position"></div>';
 			}
 			return '';
 		}
 
 		protected function getText() {
-			if ( isset( $this->att['text'] ) === true ) {
-				$textArray = explode( '|', $this->att['text'] );
+			$text = $this->getAttribute( 'text' );
+			if ( $text !== null ) {
+				$textArray = explode( '|', $text );
 				$textBox   = '<div class="text">';
 				foreach ( $textArray as $key => $sliderText ) {
 					$textBox .= '<span class="' . ( $key == 0 ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
