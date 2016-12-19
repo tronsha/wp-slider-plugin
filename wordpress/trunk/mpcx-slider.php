@@ -77,7 +77,11 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		}
 
 		protected function setAttributes( $att ) {
-			$this->att = $att;
+			if ( is_array( $att ) === true ) {
+				foreach ( $att as $key => $value ) {
+					$this->setAttribute( $key, $value );
+				}
+			}
 		}
 
 		protected function setContent( $content ) {
