@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-$accordions = json_decode( get_option( 'mpcx_slider' ), true );
+$slider = json_decode( get_option( 'mpcx_slider' ), true );
 
 ?>
 <div class="wrap">
