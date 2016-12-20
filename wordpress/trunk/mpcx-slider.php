@@ -69,6 +69,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			if ( isset( $this->att[ $key ] ) === true ) {
 				return $this->att[ $key ];
 			}
+
 			return null;
 		}
 
@@ -94,6 +95,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			foreach ( $matches[0] as $image ) {
 				$content .= $image;
 			}
+
 			return $content;
 		}
 
@@ -111,6 +113,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					'order'          => 'ASC',
 				) );
 			}
+
 			return self::$posts;
 		}
 
@@ -121,6 +124,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 				$slides .= '<img src="' . $image_src[0] . '" alt="' . $post->post_title . '">';
 			}
+
 			return $slides;
 		}
 
@@ -135,19 +139,21 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				}
 				sort( $files );
 			}
+
 			return $files;
 		}
 
 		protected function getSlidesFromTemplateDir() {
-			$slides   = '';
-			$path     = 'images/slider/slides/';
-			$dir      = realpath( get_template_directory() . '/' . $path ) . '/';
-			$files    = $this->getFilesFromDir( $dir );
+			$slides = '';
+			$path   = 'images/slider/slides/';
+			$dir    = realpath( get_template_directory() . '/' . $path ) . '/';
+			$files  = $this->getFilesFromDir( $dir );
 			if ( $files !== false ) {
 				foreach ( $files as $file ) {
 					$slides .= '<img src="' . get_template_directory_uri() . '/' . $path . basename( $file ) . '" alt="Slider Image">';
 				}
 			}
+
 			return $slides;
 		}
 
@@ -161,6 +167,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					$slides .= '<img src="' . plugin_dir_url( __FILE__ ) . $path . basename( $file ) . '" alt="Slider Image">';
 				}
 			}
+
 			return $slides;
 		}
 
@@ -183,12 +190,13 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					$slides = $this->getSlidesFromPluginDir();
 				}
 			}
+
 			return $slides;
 		}
 
 		protected function getSliderOptions() {
 			$options = '';
-			$delay = $this->getAttribute( 'delay' );
+			$delay   = $this->getAttribute( 'delay' );
 			if ( $delay !== null ) {
 				$options .= 'delay: ' . $delay . ', ';
 			}
@@ -199,11 +207,12 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			if ( $this->getAttribute( 'random' ) === 'true' ) {
 				$options .= 'random: true, ';
 			}
+
 			return $options;
 		}
 
 		protected function getSliderStyle() {
-			$style = '';
+			$style  = '';
 			$height = $this->getAttribute( 'height' );
 			if ( $height !== null ) {
 				$style .= 'height: ' . $height . 'px; ';
@@ -212,6 +221,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			if ( $width !== null ) {
 				$style .= 'width: ' . $width . 'px; ';
 			}
+
 			return $style;
 		}
 
@@ -244,6 +254,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 				return $prevButton;
 			}
+
 			return '';
 		}
 
@@ -266,6 +277,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 				return $nextButton;
 			}
+
 			return '';
 		}
 
@@ -273,6 +285,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			if ( $this->getAttribute( 'position' ) === 'true' ) {
 				return '<div class="position"></div>';
 			}
+
 			return '';
 		}
 
@@ -285,6 +298,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					$textBox .= '<span class="' . ( $key == 0 ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
 				}
 				$textBox .= '</div>';
+
 				return $textBox;
 			} else {
 				$posts = $this->getPosts( false );
@@ -296,9 +310,11 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 						$first = false;
 					}
 					$textBox .= '</div>';
+
 					return $textBox;
 				}
 			}
+
 			return '';
 		}
 
@@ -332,6 +348,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			$slider = self::getInstance();
 			$slider->setAttributes( $att );
 			$slider->setContent( $content );
+
 			return $slider->getHtml();
 		}
 
@@ -339,6 +356,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			if ( self::$instance === null ) {
 				self::$instance = new self;
 			}
+
 			return self::$instance;
 		}
 
