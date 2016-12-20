@@ -52,7 +52,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			}
 		}
 
-		protected function addAdminAction () {
+		protected function addAdminAction() {
 			add_action(
 				'admin_menu',
 				function () {
