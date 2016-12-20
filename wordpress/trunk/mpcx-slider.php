@@ -98,11 +98,27 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return MPCX_SLIDER_VERSION;
 		}
 
-		protected function setAttribute($att) {
-			$this->att = $att;
+		protected function getAttribute( $key ) {
+			if ( isset( $this->att[ $key ] ) === true ) {
+				return $this->att[ $key ];
+			}
+
+			return null;
 		}
 
-		protected function setContent($content) {
+		protected function setAttribute( $key, $value ) {
+			$this->att[ $key ] = $value;
+		}
+
+		protected function setAttributes( $att ) {
+			if ( is_array( $att ) === true ) {
+				foreach ( $att as $key => $value ) {
+					$this->setAttribute( $key, $value );
+				}
+			}
+		}
+
+		protected function setContent( $content ) {
 			$this->content = $content;
 		}
 
@@ -112,7 +128,12 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			foreach ( $matches[0] as $image ) {
 				$content .= $image;
 			}
+
 			return $content;
+		}
+
+		protected function getSlidesById( $id = null ) {
+			return;
 		}
 
 		protected function getPosts( $x = true ) {
@@ -125,6 +146,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					'order'          => 'ASC',
 				) );
 			}
+
 			return self::$posts;
 		}
 
@@ -135,6 +157,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 				$slides .= '<img src="' . $image_src[0] . '" alt="' . $post->post_title . '">';
 			}
+
 			return $slides;
 		}
 
@@ -149,19 +172,21 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				}
 				sort( $files );
 			}
+
 			return $files;
 		}
 
 		protected function getSlidesFromTemplateDir() {
-			$slides   = '';
-			$path     = 'images/slider/slides/';
-			$dir      = realpath( get_template_directory() . '/' . $path ) . '/';
-			$files    = $this->getFilesFromDir( $dir );
+			$slides = '';
+			$path   = 'images/slider/slides/';
+			$dir    = realpath( get_template_directory() . '/' . $path ) . '/';
+			$files  = $this->getFilesFromDir( $dir );
 			if ( $files !== false ) {
 				foreach ( $files as $file ) {
-					$slides .= '<img src="' . get_template_directory_uri() . $path . basename( $file ) . '" alt="Slider Image">';
+					$slides .= '<img src="' . get_template_directory_uri() . '/' . $path . basename( $file ) . '" alt="Slider Image">';
 				}
 			}
+
 			return $slides;
 		}
 
@@ -175,6 +200,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					$slides .= '<img src="' . plugin_dir_url( __FILE__ ) . $path . basename( $file ) . '" alt="Slider Image">';
 				}
 			}
+
 			return $slides;
 		}
 
@@ -183,7 +209,13 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$content = do_shortcode( $this->content );
 				$slides  = $this->cleanContent( $content );
 			} else {
-				$slides = $this->getSlidesFromPosts();
+				$id = $this->getAttribute( 'id' );
+				if ( $id !== null ) {
+					$slides = $this->getSlidesById( $id );
+				}
+				if ( empty( $slides ) === true ) {
+					$slides = $this->getSlidesFromPosts();
+				}
 				if ( empty( $slides ) === true ) {
 					$slides = $this->getSlidesFromTemplateDir();
 				}
@@ -191,31 +223,38 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					$slides = $this->getSlidesFromPluginDir();
 				}
 			}
+
 			return $slides;
 		}
 
 		protected function getSliderOptions() {
 			$options = '';
-			if ( isset( $this->att['delay'] ) === true ) {
-				$options .= 'delay: ' . $this->att['delay'] . ', ';
+			$delay   = $this->getAttribute( 'delay' );
+			if ( $delay !== null ) {
+				$options .= 'delay: ' . $delay . ', ';
 			}
-			if ( isset( $this->att['interval'] ) === true ) {
-				$options .= 'interval: ' . $this->att['interval'] . ', ';
+			$interval = $this->getAttribute( 'interval' );
+			if ( $interval !== null ) {
+				$options .= 'interval: ' . $interval . ', ';
 			}
-			if ( isset( $this->att['random'] ) === true && $this->att['random'] === 'true' ) {
+			if ( $this->getAttribute( 'random' ) === 'true' ) {
 				$options .= 'random: true, ';
 			}
+
 			return $options;
 		}
 
 		protected function getSliderStyle() {
-			$style = '';
-			if ( isset( $this->att['height'] ) === true ) {
-				$style .= 'height: ' . $this->att['height'] . 'px; ';
+			$style  = '';
+			$height = $this->getAttribute( 'height' );
+			if ( $height !== null ) {
+				$style .= 'height: ' . $height . 'px; ';
 			}
-			if ( isset( $this->att['width'] ) === true ) {
-				$style .= 'width: ' . $this->att['width'] . 'px; ';
+			$width = $this->getAttribute( 'width' );
+			if ( $width !== null ) {
+				$style .= 'width: ' . $width . 'px; ';
 			}
+
 			return $style;
 		}
 
@@ -230,11 +269,13 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		}
 
 		protected function getButtonPrev() {
-			if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+			$change = $this->getAttribute( 'change' );
+			if ( $change === 'true' || $change === 'fa' ) {
 				$prevButton = '<div class="prev">';
-				if ( $this->att['change'] === 'fa' ) {
+				if ( $change === 'fa' ) {
 					$this->loadFontAwesome();
-					$prevButton .= '<i class="fa ' . ( isset( $this->att['prev'] ) ? $this->att['prev'] : 'fa-chevron-left' ) . '"></i>';
+					$prev = $this->getAttribute( 'prev' );
+					$prevButton .= '<i class="fa ' . ( $prev !== null ? $prev : 'fa-chevron-left' ) . '"></i>';
 				} elseif ( file_exists( get_template_directory() . '/images/slider/prev.png' ) ) {
 					$prevButton .= '<img src="' . get_template_directory_uri() . '/images/slider/prev.png" alt="prev">';
 				} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/prev.png' ) ) {
@@ -246,15 +287,18 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 				return $prevButton;
 			}
+
 			return '';
 		}
 
 		protected function getButtonNext() {
-			if ( isset( $this->att['change'] ) === true && ( $this->att['change'] === 'true' || $this->att['change'] === 'fa' ) ) {
+			$change = $this->getAttribute( 'change' );
+			if ( $change === 'true' || $change === 'fa' ) {
 				$nextButton = '<div class="next">';
-				if ( $this->att['change'] === 'fa' ) {
+				if ( $change === 'fa' ) {
 					$this->loadFontAwesome();
-					$nextButton .= '<i class="fa ' . ( isset( $this->att['next'] ) ? $this->att['next'] : 'fa-chevron-right' ) . '"></i>';
+					$next = $this->getAttribute( 'next' );
+					$nextButton .= '<i class="fa ' . ( $next !== null ? $next : 'fa-chevron-right' ) . '"></i>';
 				} elseif ( file_exists( get_template_directory() . '/images/slider/next.png' ) ) {
 					$nextButton .= '<img src="' . get_template_directory_uri() . '/images/slider/next.png" alt="next">';
 				} elseif ( file_exists( plugin_dir_path( __FILE__ ) . 'public/images/next.png' ) ) {
@@ -266,24 +310,28 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 				return $nextButton;
 			}
+
 			return '';
 		}
 
 		protected function getPositionBar() {
-			if ( isset( $this->att['position'] ) === true && $this->att['position'] === 'true' ) {
+			if ( $this->getAttribute( 'position' ) === 'true' ) {
 				return '<div class="position"></div>';
 			}
+
 			return '';
 		}
 
 		protected function getText() {
-			if ( isset( $this->att['text'] ) === true ) {
-				$textArray = explode( '|', $this->att['text'] );
+			$text = $this->getAttribute( 'text' );
+			if ( $text !== null ) {
+				$textArray = explode( '|', $text );
 				$textBox   = '<div class="text">';
 				foreach ( $textArray as $key => $sliderText ) {
 					$textBox .= '<span class="' . ( $key == 0 ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
 				}
 				$textBox .= '</div>';
+
 				return $textBox;
 			} else {
 				$posts = $this->getPosts( false );
@@ -295,9 +343,11 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 						$first = false;
 					}
 					$textBox .= '</div>';
+
 					return $textBox;
 				}
 			}
+
 			return '';
 		}
 
@@ -329,8 +379,9 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		public static function renderSlider( $att = array(), $content = null ) {
 			self::$id ++;
 			$slider = self::getInstance();
-			$slider->setAttribute( $att );
+			$slider->setAttributes( $att );
 			$slider->setContent( $content );
+
 			return $slider->getHtml();
 		}
 
@@ -338,6 +389,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			if ( self::$instance === null ) {
 				self::$instance = new self;
 			}
+
 			return self::$instance;
 		}
 

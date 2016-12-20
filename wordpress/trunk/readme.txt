@@ -16,9 +16,9 @@ A responsive Slider Plugin
 
 = Documentation =
 
-The Plugin requires PHP 5.3.2 or newer.
+Here you can read the [Documentation](https://github.com/tronsha/wp-slider-plugin/blob/master/README.md)
 
-Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugin/blob/master/README.md)
+The Plugin requires PHP 5.3.2 or newer.
 
 == Installation ==
 

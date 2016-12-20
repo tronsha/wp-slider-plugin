@@ -4,17 +4,22 @@
 
 ### Integrate 
 
-The slider can be easily integrated with the shortcode `[slider]`. 
+The slider can be easily integrated with the shortcode `[slider /]`.
 
 If you want to use the slider in the template so you can integrate it as follows. 
 
 ```php
-<?php echo do_shortcode('[slider]'); ?> 
+<?php echo do_shortcode('[slider /]'); ?>
 ```
 
-In this short form are all _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/slider/slides/_ used by the Slider.
+### Add Images to Slider
 
-It can also use the WordPress Gallery. 
+You have different ways to add Images to the Slider:
+
+#### Use the WordPress Gallery
+
+Create a WordPress Gallery.
+Select for gallery `size="full"` or the desired image size.
 
 ```
 [slider]
@@ -22,9 +27,28 @@ It can also use the WordPress Gallery.
 [/slider]
 ```
 
-Select for gallery `size="full"` or the desired image size.
+#### Insert Image-HTML-Tags 
 
-### Attributes 
+```
+[slider]
+<img src="http://example.org/wp-content/uploads/slide1.png" />
+<img src="http://example.org/wp-content/uploads/slide2.png" />
+<img src="http://example.org/wp-content/uploads/slide3.png" />
+[/slider]
+```
+
+#### Use Posts
+
+First create a Category `slides`.
+Add a new Post, with a featured image and add the Category `slides` to the Post.
+Use the shortcode `[slider /]` without content.
+
+
+#### Add the images in Plugin directory
+
+All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/public/slides/_ used by the Slider.
+
+### Attributes
 
 * __interval__: Waiting time to display the next slide. In milliseconds. Default: 10000
 * __delay__: Time for changing. In milliseconds. Default: 1000
