@@ -57,7 +57,9 @@ All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/
 * __position__: Set _true_ to show the position points. Default: false
 * __text__: Show Text Box. Separate with __|__.
 
-For example, the slider should be include into the header of the template. It should be every 5 seconds change a image.
+### Examples
+
+#### The slider change the image every 5 second.
 
 ```php
 <?php echo do_shortcode('[slider interval="5000"]'); ?>
