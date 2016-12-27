@@ -65,6 +65,12 @@ All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/
 <?php echo do_shortcode('[slider interval="5000"]'); ?>
 ```
 
+#### The images are displayed in random order.
+
+```php
+<?php echo do_shortcode('[slider random="true"]'); ?>
+```
+
 #### Font Awesome
 
 Here an example, to use a [_Font Awesome_][5] symbol for the forward and back arrows.
