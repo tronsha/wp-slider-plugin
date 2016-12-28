@@ -62,13 +62,13 @@ All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/
 #### The slider change the image every 5 second.
 
 ```php
-<?php echo do_shortcode('[slider interval="5000"]'); ?>
+<?php echo do_shortcode('[slider interval="5000" /]'); ?>
 ```
 
 #### The images are displayed in random order.
 
 ```php
-<?php echo do_shortcode('[slider random="true"]'); ?>
+<?php echo do_shortcode('[slider random="true" /]'); ?>
 ```
 
 #### Font Awesome
@@ -76,7 +76,7 @@ All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/
 Here an example, to use a [_Font Awesome_][5] symbol for the forward and back arrows.
 
 ```php
-<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
+<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left" /]'); ?>
 ```
 
 ## Require
