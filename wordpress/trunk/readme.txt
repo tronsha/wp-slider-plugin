@@ -4,7 +4,7 @@ Donate link: http://www.mpcx.net/wordpress/donate/
 Tags: slider, images, responsive, random, jquery, shortcode, plugin
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 1.3.5
+Stable tag: 1.3.6
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
 
@@ -16,9 +16,9 @@ A responsive Slider Plugin
 
 = Documentation =
 
-The Plugin requires PHP 5.3.2 or newer.
+Here you can read the [Documentation](https://github.com/tronsha/wp-slider-plugin/blob/master/README.md)
 
-Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugin/blob/master/README.md)
+The Plugin requires PHP 5.3.2 or newer.
 
 == Installation ==
 
@@ -27,6 +27,9 @@ Here you can find the [Documentation](https://github.com/tronsha/wp-slider-plugi
 1. Place `<?php echo do_shortcode('[slider]'); ?>` in your templates.
 
 == Changelog ==
+
+= 1.3.6 =
+* added logic for using slide images in template directory
 
 = 1.3.3 =
 * changed class structure

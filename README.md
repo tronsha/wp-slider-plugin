@@ -4,17 +4,22 @@
 
 ### Integrate 
 
-The slider can be easily integrated with the shortcode `[slider]`. 
+The slider can be easily integrated with the shortcode `[slider /]`.
 
 If you want to use the slider in the template so you can integrate it as follows. 
 
 ```php
-<?php echo do_shortcode('[slider]'); ?> 
+<?php echo do_shortcode('[slider /]'); ?>
 ```
 
-In this short form are all _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/slider/slides/_ used by the Slider.
+### Add Images to Slider
 
-It can also use the WordPress Gallery. 
+You have different ways to add Images to the Slider:
+
+#### Use the WordPress Gallery
+
+Create a WordPress Gallery.
+Select for gallery `size="full"` or the desired image size.
 
 ```
 [slider]
@@ -22,9 +27,28 @@ It can also use the WordPress Gallery.
 [/slider]
 ```
 
-Select for gallery `size="full"` or the desired image size.
+#### Insert Image-HTML-Tags 
 
-### Attributes 
+```
+[slider]
+<img src="http://example.org/wp-content/uploads/slide1.png" />
+<img src="http://example.org/wp-content/uploads/slide2.png" />
+<img src="http://example.org/wp-content/uploads/slide3.png" />
+[/slider]
+```
+
+#### Use Posts
+
+First create a Category `slides`.
+Add a new Post, with a featured image and add the Category `slides` to the Post.
+Use the shortcode `[slider /]` without content.
+
+
+#### Add the images in Plugin directory
+
+All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/public/slides/_ used by the Slider.
+
+### Attributes
 
 * __interval__: Waiting time to display the next slide. In milliseconds. Default: 10000
 * __delay__: Time for changing. In milliseconds. Default: 1000
@@ -33,10 +57,18 @@ Select for gallery `size="full"` or the desired image size.
 * __position__: Set _true_ to show the position points. Default: false
 * __text__: Show Text Box. Separate with __|__.
 
-For example, the slider should be include into the header of the template. It should be every 5 seconds change a image.
+### Examples
+
+#### The slider change the image every 5 second.
 
 ```php
-<?php echo do_shortcode('[slider interval="5000"]'); ?>
+<?php echo do_shortcode('[slider interval="5000" /]'); ?>
+```
+
+#### The images are displayed in random order.
+
+```php
+<?php echo do_shortcode('[slider random="true" /]'); ?>
 ```
 
 #### Font Awesome
@@ -44,7 +76,7 @@ For example, the slider should be include into the header of the template. It sh
 Here an example, to use a [_Font Awesome_][5] symbol for the forward and back arrows.
 
 ```php
-<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
+<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left" /]'); ?>
 ```
 
 ## Require
