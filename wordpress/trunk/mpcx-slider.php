@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 define( 'MPCX_SLIDER_VERSION', '1.4.0' );
 
-load_plugin_textdomain( 'mpcx-slider', false, dirname( plugin_basename( __FILE__ ) ) . '/localization' );
+load_plugin_textdomain( 'mpcx-slider', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 register_activation_hook(
 	__FILE__,
