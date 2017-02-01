@@ -27,7 +27,7 @@ load_plugin_textdomain( 'mpcx-slider', false, dirname( plugin_basename( __FILE__
 register_activation_hook(
 	__FILE__,
 	function () {
-		add_option( 'mpcx_slider', json_encode( array( 0 => array( 'version' => MPCX_SLIDER_VERSION ) ) ) );
+		add_option( 'mpcx_slider', array( 0 => array( 'version' => MPCX_SLIDER_VERSION ) ) );
 	}
 );
 
