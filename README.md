@@ -57,10 +57,18 @@ All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/
 * __position__: Set _true_ to show the position points. Default: false
 * __text__: Show Text Box. Separate with __|__.
 
-For example, the slider should be include into the header of the template. It should be every 5 seconds change a image.
+### Examples
+
+#### The slider change the image every 5 second.
 
 ```php
-<?php echo do_shortcode('[slider interval="5000"]'); ?>
+<?php echo do_shortcode('[slider interval="5000" /]'); ?>
+```
+
+#### The images are displayed in random order.
+
+```php
+<?php echo do_shortcode('[slider random="true" /]'); ?>
 ```
 
 #### Font Awesome
@@ -68,7 +76,7 @@ For example, the slider should be include into the header of the template. It sh
 Here an example, to use a [_Font Awesome_][5] symbol for the forward and back arrows.
 
 ```php
-<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left"]'); ?> 
+<?php echo do_shortcode('[slider change="fa" next="fa-caret-right" prev="fa-caret-left" /]'); ?>
 ```
 
 ## Require
