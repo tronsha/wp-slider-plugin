@@ -321,7 +321,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		protected function getHtml() {
 			$slides = $this->getSlides();
 			$output = '
-            <div id="slider-' . self::$id . '" class="slider" style="' . $this->getSliderStyle() . '">
+            <div id="slider-' . self::$id . '" class="slider no-js" style="' . $this->getSliderStyle() . '">
                 <div class="slides">
                 ' . $slides . '
                 </div>
