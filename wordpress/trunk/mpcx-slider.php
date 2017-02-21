@@ -81,21 +81,17 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					'mpcx-slider',
 					plugin_dir_url( __FILE__ ) . 'public/css/slider.min.css',
 					array(),
-					$this->getVersion()
+					MPCX_SLIDER_VERSION
 				);
 				wp_register_script(
 					'mpcx-slider',
 					plugin_dir_url( __FILE__ ) . 'public/js/slider.min.js',
 					array( 'jquery' ),
-					$this->getVersion()
+					MPCX_SLIDER_VERSION
 				);
 				wp_enqueue_style( 'mpcx-slider' );
 				wp_enqueue_script( 'mpcx-slider' );
 			} );
-		}
-
-		protected function getVersion() {
-			return MPCX_SLIDER_VERSION;
 		}
 
 		protected function getAttribute( $key ) {
@@ -354,7 +350,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		protected function getHtml() {
 			$slides = $this->getSlides();
 			$output = '
-            <div id="slider-' . self::$id . '" class="slider" style="' . $this->getSliderStyle() . '">
+            <div id="slider-' . self::$id . '" class="slider no-js" style="' . $this->getSliderStyle() . '">
                 <div class="slides">
                 ' . $slides . '
                 </div>

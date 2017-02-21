@@ -33,6 +33,7 @@ The Plugin requires PHP 5.3.2 or newer.
 
 = 1.3.6 =
 * added logic for using slide images in template directory
+* added nojs to show first image as default when JavaScript is disabled
 
 = 1.3.3 =
 * changed class structure
