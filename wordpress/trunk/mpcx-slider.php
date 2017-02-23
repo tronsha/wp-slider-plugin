@@ -229,7 +229,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				'fontawesome',
 				plugin_dir_url( __FILE__ ) . 'public/css/font-awesome.min.css',
 				array(),
-				'4.6.1'
+				'4.7.0'
 			);
 			wp_enqueue_style( 'fontawesome' );
 		}
