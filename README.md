@@ -55,6 +55,7 @@ All _.jpg_ and _.png_ images from the directory _wp-content/plugins/mpcx-slider/
 * __random__: Set _true_ to show slides random. Default: false
 * __change__: Set _true_ to show the forward and back arrows. Default: false
 * __position__: Set _true_ to show the position points. Default: false
+* __resize__: Set _true_ to change slider height, if the images has a different height. Default: false
 * __text__: Show Text Box. Separate with __|__.
 
 ### Examples
