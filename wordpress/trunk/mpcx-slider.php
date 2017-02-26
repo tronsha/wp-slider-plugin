@@ -317,6 +317,17 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			return '';
 		}
 
+		protected function getLinks() {
+			$links = $this->getAttribute( 'link' );
+			if ( $links !== null ) {
+				if ( strpos( $links, '|' ) !== false ) {
+					$links = explode( '|', $links );
+				}
+			}
+
+			return $links;
+		}
+
 		protected function getHtml() {
 			$slides = $this->getSlides();
 			$output = '
