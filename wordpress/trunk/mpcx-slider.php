@@ -186,6 +186,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					$slides = $this->getSlidesFromPluginDir();
 				}
 			}
+			$slides = $this->addLinks($slides);
 
 			return $slides;
 		}
@@ -326,6 +327,12 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 			}
 
 			return $links;
+		}
+
+		protected function addLinks( $slides ) {
+			$links = $this->getLinks();
+
+			return $slides;
 		}
 
 		protected function getHtml() {
