@@ -331,6 +331,17 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 		protected function addLinks( $slides ) {
 			$links = $this->getLinks();
+			preg_match_all( '/<img[^<>]+>/i', $slides, $matches );
+			$slides = '';
+			foreach ( $matches[0] as $key => $image ) {
+				$url = is_array( $links ) ? $links[ $key ] : $links;
+				if ( empty( $url ) === false ) {
+					$attribute = ' data-href="' . $url . '"';
+					$slides .= str_replace( '>', $attribute . '>', $image );
+				} else {
+					$slides .= $image;
+				}
+			}
 
 			return $slides;
 		}
