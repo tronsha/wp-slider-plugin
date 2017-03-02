@@ -335,7 +335,14 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				preg_match_all( '/<img[^<>]+>/i', $slides, $matches );
 				$slides = '';
 				foreach ( $matches[0] as $key => $image ) {
-					$url = is_array( $links ) ? $links[ $key ] : $links;
+					$url = '';
+					if ( is_array( $links ) === true ) {
+						if ( isset( $links[ $key ] ) === true ) {
+							$url = $links[ $key ];
+						}
+					} else {
+						$url = $links;
+					}
 					if ( empty( $url ) === false ) {
 						$attribute = ' data-href="' . $url . '"';
 						$slides .= str_replace( '>', $attribute . '>', $image );
