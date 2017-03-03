@@ -36,6 +36,24 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$this->enqueueScripts();
 				$this->addShortcode();
 			}
+			if ( is_admin() ) {
+				$this->addAction();
+			}
+		}
+
+		protected function addAction() {
+			add_action(
+				'upgrader_process_complete',
+				function ( $object, $options ) {
+					if ( $options['action'] === 'update' && $options['type'] === 'plugin' ) {
+						if ( in_array( plugin_basename( __FILE__ ), $options['plugins'] ) === true ) {
+							include plugin_dir_path( __FILE__ ) . 'update.php';
+						}
+					}
+				},
+				10,
+				2
+			);
 		}
 
 		protected function addShortcode() {
