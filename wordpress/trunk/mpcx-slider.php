@@ -31,14 +31,33 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 		private $content = null;
 
 		protected function __construct() {
-			add_theme_support( 'post-thumbnails' );
-			if ( ! is_admin() ) {
-				$this->enqueueScripts();
-				$this->addShortcode();
-			}
-			if ( is_admin() ) {
+			$this->loadPluginTextdomain();
+			if ( true === is_admin() ) {
+				$this->addThemeSupport();
+				$this->registerActivationHook();
 				$this->addAction();
 			}
+			if ( false === is_admin() ) {
+				$this->addShortcode();
+				$this->enqueueScripts();
+			}
+		}
+
+		protected function loadPluginTextdomain() {
+			load_plugin_textdomain( 'mpcx-slider', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		}
+
+		protected function addThemeSupport() {
+			add_theme_support( 'post-thumbnails' );
+		}
+
+		protected function registerActivationHook() {
+			register_activation_hook(
+				__FILE__,
+				function () {
+					add_option( 'mpcx_slider', array( 'version' => MPCX_SLIDER_VERSION ) );
+				}
+			);
 		}
 
 		protected function addAction() {
