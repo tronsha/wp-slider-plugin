@@ -339,7 +339,8 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$textBox .= '</div>';
 
 				return $textBox;
-			} else {
+
+			} elseif (false === empty($this->getPosts( false ))) {
 				$posts = $this->getPosts( false );
 				if ( false === empty( $posts ) ) {
 					$textBox = '<div class="text">';
@@ -352,6 +353,34 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 
 					return $textBox;
 				}
+
+			} else {
+				$content = $this->content;
+				if ( false === empty( $content ) ) {
+					preg_match_all('/\d+/', $content, $slides);
+				}
+
+				$textBox   = '<div class="text">';
+				foreach ( $slides[0] as $key => $id ) {
+					$title = get_the_title( $id );
+
+					$media = get_post( $id );
+					$caption = $media->post_excerpt;
+					$description = $media->post_content;
+
+					$alternative = get_post_meta( $id, '_wp_attachment_image_alt', true);
+
+					$sliderText = "";
+					if ($title) $sliderText .= "<p class='mpcx-slide-title'>$title</p>";
+					if ($caption) $sliderText .= "<p class='mpcx-slide-caption'>$caption</p>";
+					if ($alternative) $sliderText .= "<p class='mpcx-slide-alternative'>$alternative</p>";
+					if ($description) $sliderText .= "<p class='mpcx-slide-description'>$description</p>";
+
+					$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
+				}
+				$textBox .= '</div>';
+
+				return $textBox;
 			}
 
 			return '';
