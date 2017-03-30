@@ -334,53 +334,65 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$textArray = explode( '|', $text );
 				$textBox   = '<div class="text">';
 				foreach ( $textArray as $key => $sliderText ) {
-					$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
+					$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( true === empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
 				}
 				$textBox .= '</div>';
 
 				return $textBox;
+			}
+			$posts = $this->getPosts( false );
+			if ( false === empty( $posts ) ) {
+				$textBox = '<div class="text">';
+				$first   = true;
+				foreach ( $posts as $post ) {
+					$textBox .= '<span class="' . ( true === $first ? 'active' : '' ) . ( true === empty( $post->post_content ) ? ' hidden' : '' ) . '">' . $post->post_content . '</span>';
+					$first = false;
+				}
+				$textBox .= '</div>';
 
-			} elseif (false === empty($this->getPosts( false ))) {
-				$posts = $this->getPosts( false );
-				if ( false === empty( $posts ) ) {
-					$textBox = '<div class="text">';
-					$first   = true;
-					foreach ( $posts as $post ) {
-						$textBox .= '<span class="' . ( true === $first ? 'active' : '' ) . ( true === empty( $post->post_content ) ? ' hidden' : '' ) . '">' . $post->post_content . '</span>';
-						$first = false;
+				return $textBox;
+			}
+			$content = $this->content;
+			if ( false === empty( $content ) ) {
+				$pattern = get_shortcode_regex();
+				preg_match_all( '/' . $pattern . '/', $content, $shortcodes, PREG_SET_ORDER );
+				foreach ( $shortcodes as $shortcode ) {
+					if ( 'gallery' === $shortcode[2] ) {
+						$attributes = wp_kses_hair_parse( 'gallery ' . $shortcode[3] );
+						foreach ( $attributes as $attribute ) {
+							if ( false !== strpos( $attribute, 'ids' ) ) {
+								$attributeParts = explode( '=', $attribute );
+								$ids            = trim( $attributeParts[1], '"\' ' );
+								$idArray        = explode( ',', $ids );
+								$textBox        = '<div class="text">';
+								foreach ( $idArray as $key => $id ) {
+									$title       = get_the_title( $id );
+									$media       = get_post( $id );
+									$caption     = $media->post_excerpt;
+									$description = $media->post_content;
+									$alternative = get_post_meta( $id, '_wp_attachment_image_alt', true );
+									$sliderText  = '';
+									if ( false === empty( $title ) ) {
+										$sliderText .= '<p class="title">' . $title . '</p>';
+									}
+									if ( false === empty( $caption ) ) {
+										$sliderText .= '<p class="caption">' . $caption . '</p>';
+									}
+									if ( false === empty( $alternative ) ) {
+										$sliderText .= '<p class="alternative">' . $alternative . '</p>';
+									}
+									if ( false === empty( $description ) ) {
+										$sliderText .= '<p class="description">' . $description . '</p>';
+									}
+									$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
+								}
+								$textBox .= '</div>';
+
+								return $textBox;
+							}
+						}
 					}
-					$textBox .= '</div>';
-
-					return $textBox;
 				}
-
-			} else {
-				$content = $this->content;
-				if ( false === empty( $content ) ) {
-					preg_match_all('/\d+/', $content, $slides);
-				}
-
-				$textBox   = '<div class="text">';
-				foreach ( $slides[0] as $key => $id ) {
-					$title = get_the_title( $id );
-
-					$media = get_post( $id );
-					$caption = $media->post_excerpt;
-					$description = $media->post_content;
-
-					$alternative = get_post_meta( $id, '_wp_attachment_image_alt', true);
-
-					$sliderText = "";
-					if ($title) $sliderText .= "<p class='mpcx-slide-title'>$title</p>";
-					if ($caption) $sliderText .= "<p class='mpcx-slide-caption'>$caption</p>";
-					if ($alternative) $sliderText .= "<p class='mpcx-slide-alternative'>$alternative</p>";
-					if ($description) $sliderText .= "<p class='mpcx-slide-description'>$description</p>";
-
-					$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
-				}
-				$textBox .= '</div>';
-
-				return $textBox;
 			}
 
 			return '';
