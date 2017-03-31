@@ -8,7 +8,7 @@
  * Plugin Name:       Slider
  * Plugin URI:        https://github.com/tronsha/wp-slider-plugin
  * Description:       A responsive Slider Plugin.
- * Version:           1.3.8
+ * Version:           1.3.9
  * Author:            Stefan Hüsges
  * Author URI:        http://www.mpcx.net/
  * Copyright:         Stefan Hüsges
@@ -20,7 +20,7 @@
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-define( 'MPCX_SLIDER_VERSION', '1.3.8' );
+define( 'MPCX_SLIDER_VERSION', '1.3.9' );
 
 if ( ! class_exists( 'MpcxSlider' ) ) {
 
@@ -225,7 +225,7 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 					$slides = $this->getSlidesFromPluginDir();
 				}
 			}
-			$slides = $this->addLinks($slides);
+			$slides = $this->addLinks( $slides );
 
 			return $slides;
 		}
@@ -334,27 +334,71 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 				$textArray = explode( '|', $text );
 				$textBox   = '<div class="text">';
 				foreach ( $textArray as $key => $sliderText ) {
-					$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
+					$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( true === empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
 				}
 				$textBox .= '</div>';
 
 				return $textBox;
-			} else {
-				$posts = $this->getPosts( false );
-				if ( false === empty( $posts ) ) {
-					$textBox = '<div class="text">';
-					$first   = true;
-					foreach ( $posts as $post ) {
-						$textBox .= '<span class="' . ( true === $first ? 'active' : '' ) . ( true === empty( $post->post_content ) ? ' hidden' : '' ) . '">' . $post->post_content . '</span>';
-						$first = false;
-					}
-					$textBox .= '</div>';
-
-					return $textBox;
-				}
 			}
+			$posts = $this->getPosts( false );
+			if ( false === empty( $posts ) ) {
+				$textBox = '<div class="text">';
+				$first   = true;
+				foreach ( $posts as $post ) {
+					$textBox .= '<span class="' . ( true === $first ? 'active' : '' ) . ( true === empty( $post->post_content ) ? ' hidden' : '' ) . '">' . $post->post_content . '</span>';
+					$first = false;
+				}
+				$textBox .= '</div>';
 
-			return '';
+				return $textBox;
+			}
+			$meta = $this->getAttribute( 'meta' );
+			if ( false === empty( $meta ) ) {
+				$content = $this->content;
+				if ( false === empty( $content ) ) {
+					$pattern = get_shortcode_regex();
+					preg_match_all( '/' . $pattern . '/', $content, $shortcodes, PREG_SET_ORDER );
+					foreach ( $shortcodes as $shortcode ) {
+						if ( 'gallery' === $shortcode[2] ) {
+							$attributes = wp_kses_hair_parse( 'gallery ' . $shortcode[3] );
+							foreach ( $attributes as $attribute ) {
+								if ( false !== strpos( $attribute, 'ids' ) ) {
+									$attributeParts = explode( '=', $attribute );
+									$ids            = trim( $attributeParts[1], '"\' ' );
+									$idArray        = explode( ',', $ids );
+									$textBox        = '<div class="text">';
+									foreach ( $idArray as $key => $id ) {
+										$title       = get_the_title( $id );
+										$media       = get_post( $id );
+										$caption     = $media->post_excerpt;
+										$description = $media->post_content;
+										$alternative = get_post_meta( $id, '_wp_attachment_image_alt', true );
+										$sliderText  = '';
+										if ( 'title' === $meta && false === empty( $title ) ) {
+											$sliderText .= '<p class="title">' . $title . '</p>';
+										}
+										if ( 'caption' === $meta && false === empty( $caption ) ) {
+											$sliderText .= '<p class="caption">' . $caption . '</p>';
+										}
+										if ( 'alternative' === $meta && false === empty( $alternative ) ) {
+											$sliderText .= '<p class="alternative">' . $alternative . '</p>';
+										}
+										if ( 'description' === $meta && false === empty( $description ) ) {
+											$sliderText .= '<p class="description">' . $description . '</p>';
+										}
+										$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
+									}
+									$textBox .= '</div>';
+
+									return $textBox;
+								}
+							}
+						}
+					}
+				}
+
+				return '';
+			}
 		}
 
 		protected function getLinks() {
