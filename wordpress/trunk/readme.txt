@@ -2,9 +2,9 @@
 Contributors: DeusTron
 Donate link: http://www.mpcx.net/wordpress/donate/
 Tags: slider, images, responsive, random, jquery, shortcode, plugin
-Requires at least: 4.0
+Requires at least: 4.2.3
 Tested up to: 4.7
-Stable tag: 1.3.8
+Stable tag: 1.3.9
 License: MIT
 License URI: https://raw.githubusercontent.com/tronsha/wp-slider-plugin/master/LICENSE
 
@@ -27,6 +27,10 @@ The Plugin requires PHP 5.3.2 or newer.
 1. Place `<?php echo do_shortcode('[slider]'); ?>` in your templates.
 
 == Changelog ==
+
+= 1.3.9 =
+* added meta data support from media at gallery
+* update textbox
 
 = 1.3.8 =
 * changed random
