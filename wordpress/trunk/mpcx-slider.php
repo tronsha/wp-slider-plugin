@@ -375,16 +375,16 @@ if ( ! class_exists( 'MpcxSlider' ) ) {
 										$alternative = get_post_meta( $id, '_wp_attachment_image_alt', true );
 										$sliderText  = '';
 										if ( 'title' === $meta && false === empty( $title ) ) {
-											$sliderText .= '<p class="title">' . $title . '</p>';
+											$sliderText .= '<span class="title">' . $title . '</span>';
 										}
 										if ( 'caption' === $meta && false === empty( $caption ) ) {
-											$sliderText .= '<p class="caption">' . $caption . '</p>';
+											$sliderText .= '<span class="caption">' . $caption . '</span>';
 										}
 										if ( 'alternative' === $meta && false === empty( $alternative ) ) {
-											$sliderText .= '<p class="alternative">' . $alternative . '</p>';
+											$sliderText .= '<span class="alternative">' . $alternative . '</span>';
 										}
 										if ( 'description' === $meta && false === empty( $description ) ) {
-											$sliderText .= '<p class="description">' . $description . '</p>';
+											$sliderText .= '<span class="description">' . $description . '</span>';
 										}
 										$textBox .= '<span class="' . ( 0 === $key ? 'active' : '' ) . ( empty( $sliderText ) ? ' hidden' : '' ) . '">' . $sliderText . '</span>';
 									}
